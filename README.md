@@ -120,6 +120,7 @@ No se afirma cumplimiento legal automático. Antes de una publicación comercial
 - [Rutas y API](docs/ROUTES.md)
 - [Importación de contenido](docs/CONTENT.md)
 - [Funciones, pruebas y pendientes](docs/IMPLEMENTATION.md)
+- [Configuración y diagnóstico de Netlify](docs/NETLIFY.md)
 
 Referencias técnicas: [Next.js App Router](https://nextjs.org/docs/app/getting-started/installation), [Prisma 6 y SQLite](https://www.prisma.io/docs/orm/v6/overview/databases/sqlite).
 

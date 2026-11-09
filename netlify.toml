@@ -1,0 +1,11 @@
+[build]
+  base = "."
+  command = "npm run build:netlify"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Install the current Netlify Next.js adapter without pinning an old runtime.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
