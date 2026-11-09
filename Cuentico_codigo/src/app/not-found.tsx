@@ -1,0 +1,1 @@
+export default function NotFound() { return <main className="loading-screen"><h1>Esta página se fue de aventura</h1><p>Volvamos a buscar una historia.</p><a className="button" href="/">Ir al inicio</a></main>; }

@@ -1,0 +1,674 @@
+{
+    "universe":  {
+                     "id":  "universo-cuentico",
+                     "title":  "Un universo de historias"
+                 },
+    "library":  {
+                    "id":  "primera-biblioteca",
+                    "title":  "Pequeñas grandes aventuras",
+                    "access":  "Free"
+                },
+    "stories":  [
+                    {
+                        "id":  "alas",
+                        "title":  "Las alas que brillaban con el sol",
+                        "description":  "En lo más profundo de un bosque encantado vivía un pequeño niño llamado Elian. Su hogar estaba en el lado más oscuro del bosque, donde los árboles eran tan altos que apenas dejaban pasar los rayos del sol.",
+                        "order":  1,
+                        "ageMin":  6,
+                        "ageMax":  7,
+                        "durationMinutes":  8,
+                        "theme":  "Fantasía y autoestima",
+                        "cover":  "/assets/stories/alas/1.png",
+                        "available":  true,
+                        "scenes":  [
+                                       {
+                                           "id":  "alas-1",
+                                           "index":  0,
+                                           "image":  "/assets/stories/alas/1.png",
+                                           "paragraphs":  [
+                                                              "En lo más profundo de un bosque encantado vivía un pequeño niño llamado Elian. Su hogar estaba en el lado más oscuro del bosque, donde los árboles eran tan altos que apenas dejaban pasar los rayos del sol.",
+                                                              "Cada mañana, Elian se asomaba entre los arbustos para observar a los demás niños. Ellos jugaban, reían y revoloteaban entre los árboles con sus hermosas alas de colores. Algunos tenían alas azules como el cielo, otras rosadas como las flores y algunas doradas como los rayos del sol."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "alas-1",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "alas-2",
+                                           "index":  1,
+                                           "image":  "/assets/stories/alas/2.png",
+                                           "paragraphs":  [
+                                                              "Elian también tenía alas, pero eran muy diferentes. Eran grises, pequeñas y tan débiles que no podían levantarlo del suelo. ",
+                                                              "—¡Ojalá mis alas fueran como las de ellos! —suspiraba mientras las escondía detrás de su espalda.",
+                                                              "Así pasaban los días. Elian soñaba con volar, pero le daba vergüenza que los demás vieran sus pequeñas alas. Por eso, siempre permanecía en su rincón oscuro, lejos de las miradas."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "alas-2",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "alas-3",
+                                           "index":  2,
+                                           "image":  "/assets/stories/alas/3.png",
+                                           "paragraphs":  [
+                                                              "Una mañana, mientras observaba a los niños jugar, escuchó una música alegre que venía del otro lado del bosque. Quiso acercarse un poquito más para verla, pero tropezó con una raíz y ¡PUM!, cayó justo en medio del claro iluminado."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "alas-3",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "alas-4",
+                                           "index":  3,
+                                           "image":  "/assets/stories/alas/4.png",
+                                           "paragraphs":  [
+                                                              "Los niños dejaron de jugar y se acercaron sorprendidos.",
+                                                              "Elian sintió que las mejillas le ardían. Rápidamente intentó esconder sus alas.",
+                                                              "—¡No me miren! ¡Mis alas son feas y no sirven para volar! —exclamó.",
+                                                              "Pero los niños no se reían. ¡Al contrario! Sus ojos brillaban de emoción.",
+                                                              "—¡Qué hermosas son! —dijo una niña.",
+                                                              "—¡Parecen hechas de polvo de estrellas! —añadió otro."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "alas-4",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "alas-5",
+                                           "index":  4,
+                                           "image":  "/assets/stories/alas/5.png",
+                                           "paragraphs":  [
+                                                              "Elian levantó la mirada y, por primera vez, observó sus alas bajo la luz del sol. Las plumas grises brillaban con destellos plateados y pequeñas luces doradas danzaban sobre ellas. ¡Eran preciosas!",
+                                                              "—Nunca había visto unas alas como las tuyas —dijo uno de los niños."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "alas-5",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "alas-6",
+                                           "index":  5,
+                                           "image":  "/assets/stories/alas/6.png",
+                                           "paragraphs":  [
+                                                              "Desde aquel día, Elian dejó de esconderse. Aunque todavía no podía volar, descubrió que sus alas eran especiales y que no necesitaba tenerlas como las de los demás para ser maravilloso.",
+                                                              "Ahora jugaba con sus nuevos amigos, reía bajo los rayos del sol y esperaba con ilusión el día en que sus alas estuvieran listas para volar.",
+                                                              "Y cada vez que alguien se sentía diferente, Elian le recordaba:",
+                                                              "—¡No escondas lo que te hace especial! A veces, solo necesitamos un poquito de luz para descubrir nuestra belleza.",
+                                                              "Moraleja: No debemos avergonzarnos de ser diferentes. Cada uno tiene algo especial que lo hace único y maravilloso."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "alas-6",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       }
+                                   ],
+                        "character":  {
+                                          "id":  "alas-character",
+                                          "name":  "Elian",
+                                          "image":  "/assets/stories/alas/5.png"
+                                      },
+                        "activity":  {
+                                         "id":  "alas-activity",
+                                         "type":  "FAVORITE_MOMENT",
+                                         "title":  "Nuestro momento favorito",
+                                         "sceneIds":  [
+                                                          "alas-1",
+                                                          "alas-3",
+                                                          "alas-5",
+                                                          "alas-6"
+                                                      ]
+                                     }
+                    },
+                    {
+                        "id":  "nilo",
+                        "title":  "Nilo, el gato explorador",
+                        "description":  "En un pequeño pueblo rodeado de montañas, árboles y coloridos jardines, vivía Nilo, un gatito negro de ojos brillantes. Compartía una casita con un niño llamado Tomás, quien lo quería muchísimo y siempre cuidaba de él.",
+                        "order":  2,
+                        "ageMin":  6,
+                        "ageMax":  7,
+                        "durationMinutes":  8,
+                        "theme":  "Animales y amistad",
+                        "cover":  "/assets/stories/nilo/1.png",
+                        "available":  true,
+                        "scenes":  [
+                                       {
+                                           "id":  "nilo-1",
+                                           "index":  0,
+                                           "image":  "/assets/stories/nilo/1.png",
+                                           "paragraphs":  [
+                                                              "En un pequeño pueblo rodeado de montañas, árboles y coloridos jardines, vivía Nilo, un gatito negro de ojos brillantes. Compartía una casita con un niño llamado Tomás, quien lo quería muchísimo y siempre cuidaba de él.",
+                                                              "A Nilo le encantaba explorar. Todas las mañanas salía a pasear por el bosque cercano, donde perseguía mariposas, saltaba sobre las piedras, olfateaba las flores y escuchaba el canto de los pájaros."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "nilo-1",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "nilo-2",
+                                           "index":  1,
+                                           "image":  "/assets/stories/nilo/2.png",
+                                           "paragraphs":  [
+                                                              "Una mañana, mientras perseguía una hermosa mariposa azul, se adentró entre los árboles más altos. Atravesó un campo de margaritas y pasó junto a unos honguitos rojos. ¡Estaba tan entretenido que no se dio cuenta de lo lejos que había llegado!",
+                                                              "Cuando la mariposa desapareció, Nilo miró a su alrededor. Los árboles parecían gigantes y los caminos eran desconocidos.",
+                                                              "—¡Oh, no! ¿Dónde estoy? ¡Me he perdido! —maulló preocupado."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "nilo-2",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "nilo-3",
+                                           "index":  2,
+                                           "image":  "/assets/stories/nilo/3.png",
+                                           "paragraphs":  [
+                                                              "Comenzó a caminar entre los arbustos hasta que escuchó una voz sobre su cabeza.",
+                                                              "—¡Hola, pequeño! ¿Por qué estás tan preocupado? —preguntó una ardilla de cola esponjosa.",
+                                                              "—Me he perdido y no sé cómo volver a casa —respondió Nilo.",
+                                                              "—¡No te preocupes! Mis amigos pueden ayudarte."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "nilo-3",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "nilo-4",
+                                           "index":  3,
+                                           "image":  "/assets/stories/nilo/4.png",
+                                           "paragraphs":  [
+                                                              "Primero llegaron a un arroyo de aguas cristalinas, donde encontraron una tortuga descansando sobre una piedra.",
+                                                              "—Sigue el sonido del agua. Te llevará hasta un gran árbol de flores amarillas —le aconsejó.",
+                                                              "Nilo agradeció su ayuda y continuó caminando. De pronto, comenzó a llover y corrió a refugiarse debajo de una enorme hoja. Allí encontró una pequeña rana intentando alcanzar una hoja que flotaba en el arroyo.",
+                                                              "—¡Yo puedo ayudarte! —dijo Nilo, acercando una ramita.",
+                                                              "—¡Muchas gracias! Como agradecimiento, te mostraré un atajo entre los helechos —respondió la rana."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "nilo-4",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "nilo-5",
+                                           "index":  4,
+                                           "image":  "/assets/stories/nilo/5.png",
+                                           "paragraphs":  [
+                                                              "Después de atravesar un túnel de plantas y flores silvestres, llegaron a un claro lleno de luciérnagas. Allí encontraron un enorme árbol de flores amarillas, sobre cuya rama descansaba un búho.",
+                                                              "—Si subes aquella colina, podrás ver todo el bosque y encontrar el camino a casa —explicó el búho.",
+                                                              "Nilo corrió colina arriba y, al llegar a la cima, sus ojos se iluminaron. ¡A lo lejos podía ver su casita!"
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "nilo-5",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "nilo-6",
+                                           "index":  5,
+                                           "image":  "/assets/stories/nilo/6.png",
+                                           "paragraphs":  [
+                                                              "Bajó rápidamente y siguió el sendero hasta llegar al pueblo. Al verlo aparecer, Tomás salió corriendo de casa y lo abrazó emocionado.",
+                                                              "—¡Nilo! ¡Qué alegría que hayas regresado! ¡Te extrañé muchísimo!",
+                                                              "El gatito ronroneó feliz entre sus brazos. Había vivido una aventura increíble y conocido nuevos amigos que nunca olvidaría.",
+                                                              "Desde aquel día, Nilo siguió explorando el bosque junto a sus amigos, pero siempre con cuidado de no alejarse demasiado de su hogar.",
+                                                              "Moraleja: La amistad puede aparecer en los lugares más inesperados y hacer que los caminos difíciles sean más fáciles."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "nilo-6",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       }
+                                   ],
+                        "character":  {
+                                          "id":  "nilo-character",
+                                          "name":  "Nilo",
+                                          "image":  "/assets/stories/nilo/1.png"
+                                      },
+                        "activity":  {
+                                         "id":  "nilo-activity",
+                                         "type":  "SEQUENCE",
+                                         "title":  "Ordena la aventura",
+                                         "sceneIds":  [
+                                                          "nilo-1",
+                                                          "nilo-3",
+                                                          "nilo-5",
+                                                          "nilo-6"
+                                                      ]
+                                     }
+                    },
+                    {
+                        "id":  "kiro",
+                        "title":  "Kiro y el corazón de la sabana",
+                        "description":  "En una sabana llena de árboles, flores y pastos dorados vivía Kiro, un pequeño cachorro de león. Su papá, Mako, era el león que cuidaba de todos los animales.",
+                        "order":  3,
+                        "ageMin":  6,
+                        "ageMax":  7,
+                        "durationMinutes":  8,
+                        "theme":  "Naturaleza y trabajo en equipo",
+                        "cover":  "/assets/stories/kiro/1.png",
+                        "available":  true,
+                        "scenes":  [
+                                       {
+                                           "id":  "kiro-1",
+                                           "index":  0,
+                                           "image":  "/assets/stories/kiro/1.png",
+                                           "paragraphs":  [
+                                                              "En una sabana llena de árboles, flores y pastos dorados vivía Kiro, un pequeño cachorro de león. Su papá, Mako, era el león que cuidaba de todos los animales.",
+                                                              "Kiro soñaba con ser tan valiente y fuerte como él. Le encantaba correr por los pastizales, jugar con las cebras y practicar sus rugidos.",
+                                                              "—¡ROOOAR! ¡Algún día seré el mejor protector de la sabana! —decía orgulloso."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "kiro-1",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "kiro-2",
+                                           "index":  1,
+                                           "image":  "/assets/stories/kiro/2.png",
+                                           "paragraphs":  [
+                                                              "Una mañana, mientras jugaba cerca de un gran baobab, escuchó a dos elefantes hablar.",
+                                                              "—¡Tenemos un problema! —dijo uno—. El río tiene muy poquita agua y las plantas se están secando.",
+                                                              "Kiro se puso de pie rápidamente.",
+                                                              "—¡Yo puedo arreglarlo! ¡No necesito ayuda! —exclamó.",
+                                                              "Sin esperar a su papá, salió corriendo en busca del río."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "kiro-2",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "kiro-3",
+                                           "index":  2,
+                                           "image":  "/assets/stories/kiro/3.png",
+                                           "paragraphs":  [
+                                                              "Después de caminar un buen rato, encontró un pequeño arroyo. ¡Pero algo terrible había pasado! Una tormenta había dejado caer muchas ramas y piedras que bloqueaban el paso del agua.",
+                                                              "—¡No te preocupes, arroyo! ¡Yo te ayudaré! —dijo Kiro.",
+                                                              "Empujó una piedra con sus patitas. ¡Nada! Intentó mover una rama con su cabeza. ¡Tampoco pudo!",
+                                                              "—¡Ufff! ¡Esto es demasiado difícil! —suspiró.",
+                                                              "Kiro se sentó sobre una roca. Por primera vez, entendió que no podía hacerlo todo él solo."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "kiro-3",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "kiro-4",
+                                           "index":  3,
+                                           "image":  "/assets/stories/kiro/4.png",
+                                           "paragraphs":  [
+                                                              "Entonces respiró profundo y lanzó un gran rugido:",
+                                                              "—¡ROOOAR! ¡Necesito ayuda!",
+                                                              "¡Y vaya que lo escucharon!"
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "kiro-4",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "kiro-5",
+                                           "index":  4,
+                                           "image":  "/assets/stories/kiro/5.png",
+                                           "paragraphs":  [
+                                                              "Primero llegaron los elefantes, que movieron las piedras con sus fuertes trompas. Después aparecieron las jirafas, que apartaron las ramas más altas. Finalmente, unos monos saltarines recogieron las ramitas pequeñas.",
+                                                              "¡Entre todos lo consiguieron!",
+                                                              "De pronto, el agua comenzó a correr: ¡chuuu, chuuu, chuuu! El arroyo volvió a llenarse y llegó hasta las plantas sedientas. Los animales celebraron felices."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "kiro-5",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "kiro-6",
+                                           "index":  5,
+                                           "image":  "/assets/stories/kiro/6.png",
+                                           "paragraphs":  [
+                                                              "Cuando Kiro regresó, su papá lo esperaba.",
+                                                              "—Estoy orgulloso de ti, hijo —dijo Mako—. Hoy aprendiste algo muy importante. Ser valiente no significa hacerlo todo solo, sino saber cuándo pedir ayuda y trabajar en equipo.",
+                                                              "Kiro sonrió y miró a sus amigos.",
+                                                              "Desde entonces, Kiro comprendió que siempre podía encontrar amigos dispuestos a ayudarlo y  que podrían lograr grandes cosas juntos.",
+                                                              "Moraleja: No tengas miedo de pedir ayuda. Juntos podemos superar dificultades y lograr cosas que solos no podríamos."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "kiro-6",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       }
+                                   ],
+                        "character":  {
+                                          "id":  "kiro-character",
+                                          "name":  "Kiro",
+                                          "image":  "/assets/stories/kiro/1.png"
+                                      },
+                        "activity":  {
+                                         "id":  "kiro-activity",
+                                         "type":  "GUESS_CHARACTER",
+                                         "title":  "Adivina el personaje",
+                                         "sceneIds":  [
+                                                          "kiro-1",
+                                                          "kiro-2",
+                                                          "kiro-5",
+                                                          "kiro-6"
+                                                      ]
+                                     }
+                    },
+                    {
+                        "id":  "tortas",
+                        "title":  "El misterio de las tortas desaparecidas",
+                        "description":  "En casa de Martina pasaba algo muy extraño. Cada vez que su mamá preparaba una deliciosa torta de chocolate, ¡al día siguiente había desaparecido!",
+                        "order":  4,
+                        "ageMin":  6,
+                        "ageMax":  7,
+                        "durationMinutes":  8,
+                        "theme":  "Aventuras y generosidad",
+                        "cover":  "/assets/stories/tortas/1.png",
+                        "available":  true,
+                        "scenes":  [
+                                       {
+                                           "id":  "tortas-1",
+                                           "index":  0,
+                                           "image":  "/assets/stories/tortas/1.png",
+                                           "paragraphs":  [
+                                                              "En casa de Martina pasaba algo muy extraño. Cada vez que su mamá preparaba una deliciosa torta de chocolate, ¡al día siguiente había desaparecido!",
+                                                              "La primera vez, Martina pensó que su hermano Tomás se la había comido. La segunda vez, creyó que un ratoncito goloso había entrado en la cocina. Pero cuando desapareció la tercera torta, decidió que debía descubrir al culpable."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "tortas-1",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "tortas-2",
+                                           "index":  1,
+                                           "image":  "/assets/stories/tortas/2.png",
+                                           "paragraphs":  [
+                                                              "—¡Necesitamos investigar! —dijo Martina.",
+                                                              "Llamó a sus amigos Nico y Valentina. Los tres prepararon sus mochilas con linternas, lupas y cuadernos. ¡Era hora de convertirse en detectives!"
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "tortas-2",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "tortas-3",
+                                           "index":  2,
+                                           "image":  "/assets/stories/tortas/3.png",
+                                           "paragraphs":  [
+                                                              "Primero, revisaron la cocina. Encontraron miguitas de chocolate sobre la mesa y una mancha de crema junto a la puerta.",
+                                                              "—¡El culpable estuvo aquí! —exclamó Nico.",
+                                                              "De pronto, Valentina encontró unas huellas en el suelo.",
+                                                              "—¡Quizás fue un duende que se roba los pasteles! —dijo emocionada."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "tortas-3",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "tortas-4",
+                                           "index":  3,
+                                           "image":  "/assets/stories/tortas/4.png",
+                                           "paragraphs":  [
+                                                              "Los tres decidieron esconderse detrás de las cortinas para vigilar la cocina.",
+                                                              "Esperaron un rato, hasta que escucharon:",
+                                                              "—¡Toc, toc!",
+                                                              "La puerta se abrió y apareció la mamá de Martina. Llevaba una torta dentro de una caja.",
+                                                              "—¡Es ella! —susurró Martina—. ¡Tenemos que seguirla!"
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "tortas-4",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "tortas-5",
+                                           "index":  4,
+                                           "image":  "/assets/stories/tortas/5.png",
+                                           "paragraphs":  [
+                                                              "Los niños caminaron de puntitas detrás de ella. Cruzaron el jardín y llegaron hasta la casa de la vecina, la señora Clara.",
+                                                              "—¡Muchas gracias por la torta! —dijo la vecina muy contenta.",
+                                                              "—¡De nada! La preparé para usted —respondió la mamá.",
+                                                              "Los tres detectives abrieron mucho los ojos.",
+                                                              "¡La mamá era quien se llevaba las tortas!",
+                                                              "Al regresar a casa, Martina le preguntó:",
+                                                              "—Mamá, ¿por qué regalabas nuestras tortas?",
+                                                              "Su mamá sonrió y explicó:",
+                                                              "—La señora Clara está enferma y quería darle una sorpresa para alegrar su día.",
+                                                              "Los niños se miraron. ¡Todo aquel misterio era un regalo de cariño!"
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "tortas-5",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "tortas-6",
+                                           "index":  5,
+                                           "image":  "/assets/stories/tortas/6.png",
+                                           "paragraphs":  [
+                                                              "—¡Entonces no había duendes ni ratones! —dijo Nico.",
+                                                              "Todos comenzaron a reír.",
+                                                              "Desde ese día, los niños ayudaron a preparar una torta para la señora Clara. Y, por supuesto, ¡también guardaron una para ellos!",
+                                                              "Moraleja: No debemos sacar conclusiones sin conocer la verdad. A veces, lo que parece un misterio esconde una bonita sorpresa."
+                                                          ],
+                                           "events":  [
+                                                          {
+                                                              "sceneId":  "tortas-6",
+                                                              "eventType":  "IMAGE_ANIMATION",
+                                                              "trigger":  "ON_SCENE_ENTER",
+                                                              "delayMs":  0,
+                                                              "asset":  null,
+                                                              "durationMs":  700,
+                                                              "enabled":  true
+                                                          }
+                                                      ]
+                                       }
+                                   ],
+                        "character":  {
+                                          "id":  "tortas-character",
+                                          "name":  "Martina",
+                                          "image":  "/assets/stories/tortas/2.png"
+                                      },
+                        "activity":  {
+                                         "id":  "tortas-activity",
+                                         "type":  "SEQUENCE",
+                                         "title":  "Ordena la aventura",
+                                         "sceneIds":  [
+                                                          "tortas-1",
+                                                          "tortas-3",
+                                                          "tortas-5",
+                                                          "tortas-6"
+                                                      ]
+                                     }
+                    },
+                    {
+                        "id":  "proximamente",
+                        "title":  "Próximamente",
+                        "description":  "",
+                        "order":  5,
+                        "ageMin":  6,
+                        "ageMax":  7,
+                        "durationMinutes":  0,
+                        "theme":  "",
+                        "cover":  "",
+                        "available":  false,
+                        "scenes":  [
+
+                                   ],
+                        "character":  null,
+                        "activity":  null
+                    }
+                ]
+}

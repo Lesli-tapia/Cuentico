@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.next-dev/
+.tools/
+.env
+*.db
+*.db-journal
+*.tsbuildinfo
+artifacts/
+playwright-report/
+test-results/
+coverage/
