@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ApplicationError, executeCommand, getAppState, tokenHash } from '@/server/application';
+import { DatabaseConfigurationError } from '@/server/database-configuration';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,7 +13,13 @@ const responseHeaders = { 'Cache-Control': 'no-store' };
 
 function failure(error: unknown) {
   if (error instanceof ApplicationError) return NextResponse.json({ error: error.message }, { status: error.status, headers: responseHeaders });
-  console.error('Cuentico application error:', error);
+  const code = error && typeof error === 'object' && 'code' in error ? String(error.code) : undefined;
+  const name = error instanceof Error ? error.name : 'UnknownError';
+  // Do not put connection strings or family data in hosted function logs.
+  console.error('Cuentico application error:', { name, code });
+  if (error instanceof DatabaseConfigurationError || name === 'PrismaClientInitializationError' || ['P1000', 'P1001', 'P1002', 'P1012', 'P1017', 'P2021', 'P2022'].includes(code ?? '')) {
+    return NextResponse.json({ error: 'El guardado todavía no está disponible en este sitio. La persona responsable debe configurar la conexión de la aplicación.' }, { status: 503, headers: responseHeaders });
+  }
   return NextResponse.json({ error: 'No pudimos guardar los cambios. Inténtalo de nuevo.' }, { status: 500, headers: responseHeaders });
 }
 

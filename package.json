@@ -1,9 +1,11 @@
 {
   "name": "cuentico", "version": "0.1.0", "private": true,
   "scripts": {
-    "dev": "node scripts/start-dev.mjs", "build": "next build", "build:netlify": "prisma generate && next build", "start": "next start --hostname 127.0.0.1",
+    "dev": "npm run db:generate && node scripts/start-dev.mjs", "build": "prisma generate --schema prisma/schema.prisma && next build", "build:netlify": "tsx scripts/build-netlify.ts", "start": "next start --hostname 127.0.0.1",
     "typecheck": "tsc --noEmit", "test": "vitest run", "test:watch": "vitest", "test:e2e": "playwright test",
     "db:generate": "prisma generate", "db:migrate": "node scripts/migrate.mjs", "db:seed": "tsx prisma/seed.ts",
+    "db:prepare:postgres": "node scripts/prepare-postgres.mjs", "db:generate:postgres": "npm run db:prepare:postgres && prisma generate --schema prisma/postgresql/schema.prisma",
+    "db:migrate:postgres": "prisma migrate deploy --schema prisma/postgresql/schema.prisma",
     "setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
     "content:import": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/import-content.ps1"
   },
@@ -15,7 +17,7 @@
     "@playwright/test": "^1.56.0", "@testing-library/react": "^16.1.0", "@testing-library/jest-dom": "^6.6.0",
     "@types/node": "^24.0.0", "@types/react": "^19.0.0", "@types/react-dom": "^19.0.0",
     "typescript": "^5.9.0", "prisma": "6.19.0", "tsx": "^4.20.0", "vitest": "^3.2.0", "jsdom": "^26.0.0",
-    "tailwindcss": "^4.1.0", "@tailwindcss/postcss": "^4.1.0"
+    "tailwindcss": "^4.1.0", "@tailwindcss/postcss": "^4.1.0", "@electric-sql/pglite": "^0.5.15"
   },
   "prisma": { "seed": "tsx prisma/seed.ts" },
   "engines": { "node": ">=22.0.0" }

@@ -1,0 +1,237 @@
+// Generado desde prisma/schema.prisma por scripts/prepare-postgres.mjs.
+// Edita los modelos en el esquema principal y vuelve a generar este archivo.
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model Universe {
+  id        String    @id
+  title     String
+  libraries Library[]
+}
+
+model Library {
+  id           String               @id
+  universeId   String
+  title        String
+  access       String               @default("Free")
+  universe     Universe             @relation(fields: [universeId], references: [id])
+  stories      Story[]
+  entitlements LibraryEntitlement[]
+}
+
+model Story {
+  id              String           @id
+  libraryId       String
+  title           String
+  description     String
+  order           Int
+  ageMin          Int              @default(6)
+  ageMax          Int              @default(7)
+  durationMinutes Int
+  theme           String
+  cover           String
+  available       Boolean          @default(true)
+  library         Library          @relation(fields: [libraryId], references: [id])
+  scenes          StoryScene[]
+  media           StoryMedia[]
+  sessions        ReadingSession[]
+  progress        StoryProgress[]
+  activity        Activity?
+  character       Character?
+  favorites       Favorite[]
+  @@unique([libraryId, order])
+}
+
+model StoryScene {
+  id         String @id
+  storyId    String
+  index      Int
+  image      String
+  paragraphs String
+  events     String @default("[]")
+  story      Story  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  @@unique([storyId, index])
+}
+
+model StoryMedia {
+  id      String @id
+  storyId String
+  sceneId String?
+  kind    String
+  asset   String
+  story   Story  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+}
+
+model FamilyProfile {
+  id            String                  @id @default(cuid())
+  tokenHash     String                  @unique
+  activeChildId String?
+  createdAt     DateTime                @default(now())
+  children      ChildProfile[]
+  preferences   NotificationPreference?
+  reminders     Reminder[]
+  entitlements  LibraryEntitlement[]
+}
+
+model ChildProfile {
+  id                String           @id @default(cuid())
+  familyId          String
+  name              String
+  age               Int
+  interests         String
+  avatarCharacterId String?
+  createdAt         DateTime         @default(now())
+  family            FamilyProfile    @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  plan              ReadingPlan?
+  sessions          ReadingSession[]
+  progress          StoryProgress[]
+  unlocks           CharacterUnlock[]
+  favorites         Favorite[]
+  reminders         Reminder[]
+}
+
+model ReadingPlan {
+  id             String       @id @default(cuid())
+  childProfileId String       @unique
+  minutes        Int
+  days           String
+  moment         String
+  time           String
+  timezone       String
+  child          ChildProfile @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+}
+
+model ReadingSession {
+  id                    String           @id @default(cuid())
+  storyId               String
+  childProfileId        String
+  startedAt             DateTime         @default(now())
+  finishedAt            DateTime?
+  activeDurationSeconds Float            @default(0)
+  status                String           @default("Active")
+  lastSceneIndex        Int              @default(0)
+  furthestSceneIndex    Int              @default(0)
+  story                 Story            @relation(fields: [storyId], references: [id])
+  child                 ChildProfile     @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  attempt               ActivityAttempt?
+  reminders             Reminder[]
+  @@index([childProfileId, storyId, status])
+}
+
+model StoryProgress {
+  id             String       @id @default(cuid())
+  childProfileId String
+  storyId        String
+  status         String       @default("InProgress")
+  lastSceneIndex Int          @default(0)
+  rating         String?
+  completedAt    DateTime?
+  child          ChildProfile @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  story          Story        @relation(fields: [storyId], references: [id])
+  @@unique([childProfileId, storyId])
+}
+
+model Activity {
+  id       String            @id
+  storyId  String            @unique
+  type     String
+  title    String
+  sceneIds String
+  story    Story             @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  attempts ActivityAttempt[]
+}
+
+model ActivityAttempt {
+  id          String         @id @default(cuid())
+  sessionId   String         @unique
+  activityId  String
+  status      String         @default("Pending")
+  tries       Int            @default(0)
+  completedAt DateTime?
+  lastOrder   String?
+  session     ReadingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  activity    Activity        @relation(fields: [activityId], references: [id])
+}
+
+model Character {
+  id      String            @id
+  name    String
+  storyId String            @unique
+  image   String
+  story   Story             @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  unlocks CharacterUnlock[]
+}
+
+model CharacterUnlock {
+  id             String       @id @default(cuid())
+  childProfileId String
+  characterId    String
+  unlockedAt     DateTime     @default(now())
+  child          ChildProfile @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  character      Character    @relation(fields: [characterId], references: [id])
+  @@unique([childProfileId, characterId])
+}
+
+model Favorite {
+  id             String       @id @default(cuid())
+  childProfileId String
+  storyId        String
+  child          ChildProfile @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  story          Story        @relation(fields: [storyId], references: [id])
+  @@unique([childProfileId, storyId])
+}
+
+model Reminder {
+  id             String          @id @default(cuid())
+  familyId       String
+  childProfileId String
+  sessionId      String?
+  dedupeKey      String          @unique
+  type           String
+  message        String
+  dueAt          DateTime
+  readAt         DateTime?
+  family         FamilyProfile   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  child          ChildProfile    @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  session        ReadingSession? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  @@index([childProfileId, dueAt])
+}
+
+model NotificationPreference {
+  id                String        @id @default(cuid())
+  familyId          String        @unique
+  pendingActivities Boolean       @default(true)
+  readingSessions   Boolean       @default(true)
+  motivation        Boolean       @default(false)
+  muted             Boolean       @default(true)
+  reducedMotion     Boolean       @default(false)
+  largeText         Boolean       @default(false)
+  family            FamilyProfile @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model LibraryEntitlement {
+  id       String        @id @default(cuid())
+  familyId String
+  libraryId String
+  access   String        @default("Free")
+  family   FamilyProfile @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  library  Library       @relation(fields: [libraryId], references: [id])
+  @@unique([familyId, libraryId])
+}
+
+model ParentTip {
+  id    String @id
+  stage String
+  text  String
+  order Int
+  @@unique([stage, order])
+}

@@ -33,6 +33,12 @@ Las pruebas E2E usan una base SQLite aislada por ejecución y no modifican los p
 
 La preparación de Playwright compila e inicia producción por defecto. `CUENTICO_E2E_DEV=1` permite ejecutar la misma suite contra el servidor de desarrollo cuando se necesite comprobar ese modo.
 
+## Adaptación del guardado a Netlify — 9 de noviembre de 2026
+
+Se añadió un esquema PostgreSQL generado desde los mismos 19 modelos de SQLite, con migración independiente, generación del cliente adecuada al despliegue y un build que aplica migraciones y seed antes de compilar producción. La conexión se configura mediante `DATABASE_URL`; una conexión directa opcional se define en `DIRECT_DATABASE_URL`. Los clientes y migraciones de desarrollo siguen usando SQLite.
+
+Pasaron 30 pruebas de dominio/configuración/migración y las 12 pruebas de API/navegador con SQLite. Se ejecutó la migración PostgreSQL en PGlite (PostgreSQL WASM), incluyendo claves foráneas, unicidad y rollback. También pasó la compilación PostgreSQL sin conectarse a una base remota. Esto no acredita el guardado en Netlify: falta crear/conectar una base real y desplegar el código con sus variables. Instrucciones en [NETLIFY.md](NETLIFY.md).
+
 ## Pendientes y límites deliberados
 
 - Texto e ilustraciones del quinto cuento.

@@ -1,6 +1,6 @@
 # Cuentico
 
-Aplicación local de lectura compartida para niños de 6 a 7 años y sus familias. Usa los cuatro cuentos, las 24 ilustraciones, los consejos, el logotipo y Poppins suministrados en este repositorio.
+Aplicación de lectura compartida para niños de 6 a 7 años y sus familias. Usa los cuatro cuentos, las 24 ilustraciones, los consejos, el logotipo y Poppins suministrados en este repositorio. Utiliza SQLite localmente y admite PostgreSQL para guardar datos en Netlify.
 
 ## Ejecutar localmente
 
@@ -60,6 +60,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start.ps1 -Compartir
 Mantén la computadora encendida y la terminal abierta. Si Windows solicita acceso para Node.js, autoriza únicamente redes privadas. Las redes de invitados pueden impedir la conexión entre dispositivos.
 
 La opción `-CompartirEnRed` habilita el acceso desde la red local durante esa ejecución. Sin esa opción, el script escucha en `127.0.0.1`. Cada navegador tiene su propia cookie familiar: al abrirlo por primera vez en el celular se configura un perfil y el progreso del navegador de la computadora no se transfiere automáticamente. El acceso por HTTP a una IP local permite usar la web; la instalación PWA y el service worker requieren HTTPS en el celular.
+
+## Guardar datos en Netlify
+
+La versión publicada necesita PostgreSQL. Crea una base, configura su conexión como `DATABASE_URL` en Netlify para **Builds y Functions** y vuelve a desplegar después de subir los cambios del proyecto a GitHub. `DIRECT_DATABASE_URL` permite usar una conexión separada para migraciones; es opcional.
+
+El comando `npm run build:netlify` genera el cliente PostgreSQL, aplica las migraciones, carga el catálogo mediante seed idempotente y compila Next.js. Si falta la conexión o se mantiene una URL SQLite, el build se detiene con una explicación. Los comandos locales siguen utilizando SQLite.
+
+La guía paso a paso, los contextos de vista previa y el estado de verificación están en [docs/NETLIFY.md](docs/NETLIFY.md). `.env.netlify.example` sólo muestra el formato: las contraseñas reales se guardan en Netlify y no deben publicarse en GitHub ni pegarse en un chat.
 
 ## Uso
 

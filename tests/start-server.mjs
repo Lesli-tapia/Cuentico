@@ -8,6 +8,7 @@ const run = (script, args) => new Promise((resolveRun, reject) => {
   processRun.once('error', reject);
   processRun.once('exit', code => code === 0 ? resolveRun() : reject(new Error(`Setup exited ${code}`)));
 });
+await run('node_modules/prisma/build/index.js', ['generate', '--schema', 'prisma/schema.prisma']);
 await run('node_modules/prisma/build/index.js', ['migrate', 'deploy']);
 await run('node_modules/tsx/dist/cli.mjs', ['prisma/seed.ts']);
 const development = process.env.CUENTICO_E2E_DEV === '1';

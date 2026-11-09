@@ -3,6 +3,9 @@ node_modules/
 .next-dev/
 .tools/
 .env
+.env.*
+!.env.example
+!.env.netlify.example
 *.db
 *.db-journal
 *.tsbuildinfo

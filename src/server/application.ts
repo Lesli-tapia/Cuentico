@@ -5,7 +5,7 @@ import { catalog } from '@/modules/content/types';
 import { isCorrectSequence } from '@/modules/activities/domain';
 import { defaultPlan, nextReminderAt } from '@/modules/reminders/schedule';
 import { commandSchema } from './validation';
-import { db } from './db';
+import { getDatabaseClient } from './db';
 
 type Transaction = Prisma.TransactionClient;
 export class ApplicationError extends Error {
@@ -58,8 +58,9 @@ async function scheduleActivity(tx: Transaction, familyId: string, childId: stri
   } });
 }
 
-export async function getAppState(hash: string | undefined, client: PrismaClient = db, now = new Date()): Promise<AppState> {
+export async function getAppState(hash: string | undefined, client?: PrismaClient, now = new Date()): Promise<AppState> {
   if (!hash) return emptyState();
+  client ??= getDatabaseClient();
   const family = await client.familyProfile.findUnique({ where: { tokenHash: hash }, include: { children: { orderBy: { createdAt: 'asc' } }, preferences: true } });
   if (!family) return emptyState();
   const child = family.children.find(item => item.id === family.activeChildId) ?? family.children[0];
@@ -103,12 +104,13 @@ export function acceptedDuration(current: number, requested: number, startedAt: 
   return Math.max(current, Math.min(requested, Math.max(0, (now.getTime() - startedAt.getTime()) / 1000) + 5));
 }
 
-export async function executeCommand(raw: unknown, hash: string | undefined, client: PrismaClient = db, now = new Date(), expectedChildId?: string): Promise<{
+export async function executeCommand(raw: unknown, hash: string | undefined, client: PrismaClient | undefined = undefined, now = new Date(), expectedChildId?: string): Promise<{
   state: AppState; result?: { sessionId?: string; correct?: boolean }; newToken?: string;
 }> {
   const parsed = commandSchema.safeParse(raw);
   if (!parsed.success) throw new ApplicationError('Revisa los datos enviados. El perfil necesita una edad de 6 o 7 años y una rutina válida.');
   const command: Command = parsed.data;
+  client ??= getDatabaseClient();
   let newToken: string | undefined;
   let activeHash = hash;
   let result: { sessionId?: string; correct?: boolean } | undefined;
