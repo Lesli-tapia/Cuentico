@@ -26,7 +26,9 @@ function ReaderEngine({ session, story }: { session: Session; story: Story }) {
   const clock = useRef<ActiveClock | null>(null); const player = useRef<SceneEventPlayer | null>(null);
   const commandRef = useRef(command); commandRef.current = command;
   const scene = story.scenes[sceneIndex]; const muted = !sound;
-  const reduced = (state?.preferences.reducedMotion ?? false);
+  const [systemReduced,setSystemReduced] = useState(false);
+  const reduced = (state?.preferences.reducedMotion ?? false) || systemReduced;
+  useEffect(()=>{const media=window.matchMedia('(prefers-reduced-motion: reduce)');const update=()=>{setSystemReduced(media.matches);if(media.matches)video.current?.pause()};update();media.addEventListener('change',update);return()=>media.removeEventListener('change',update)},[]);
   const save = useCallback(async (pause = false) => commandRef.current({ type: 'saveReading', sessionId: session.id, sceneIndex: sceneRef.current, activeDurationSeconds: clock.current?.seconds() ?? session.activeDurationSeconds, pause }), [session.id, session.activeDurationSeconds]);
   useEffect(() => {
     clock.current = new ActiveClock(session.activeDurationSeconds); clock.current.setVisible(!document.hidden);
