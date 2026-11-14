@@ -23,6 +23,7 @@ export const profileSchema = z.object({
 }).strict();
 const duration = z.number().finite().min(0).max(86400);
 export const commandSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('recordMetric'), sessionId: identifier, eventId: identifier, kind: z.enum(['InitialTip','VoluntaryTip','ActivityStarted','ActivityTime']), value: duration.optional() }).strict(),
   z.object({ type: z.literal('createProfile'), input: profileSchema }).strict(),
   z.object({ type: z.literal('updateProfile'), input: profileSchema }).strict(),
   z.object({ type: z.literal('switchProfile'), childId: identifier }).strict(),

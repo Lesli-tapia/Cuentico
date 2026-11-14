@@ -82,7 +82,9 @@ export async function getAppState(hash: string | undefined, client?: PrismaClien
   ]);
   const profiles = family.children.map(item => ({ id: item.id, name: item.name, age: item.age,
     interests: JSON.parse(item.interests) as string[], avatarCharacterId: item.avatarCharacterId }));
+  const metrics = await client.sessionMetric.findMany({ where: { session: { childProfileId: child.id } } });
   return {
+    metrics: metrics.map(m => ({...m, recordedAt: m.recordedAt.toISOString()})),
     family: { id: family.id, activeChildId: profileIds.includes(child.id) ? child.id : null }, profiles,
     child: profiles.find(item => item.id === child.id)!, plan, preferences,
     progress: progress.map(item => ({ storyId: item.storyId, status: item.status as Progress['status'], lastSceneIndex: item.lastSceneIndex, rating: item.rating as Progress['rating'] })),
@@ -228,6 +230,12 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
 
     const session = await tx.readingSession.findFirst({ where: { id: command.sessionId, childProfileId: child.id }, include: { story: { include: { scenes: true, character: true } }, attempt: { include: { activity: true } } } });
     if (!session) throw new ApplicationError('No encontramos esta sesión de lectura.', 404);
+    if (command.type === 'recordMetric') {
+      const id = session.id + ':' + command.kind + ':' + (command.kind === 'VoluntaryTip' ? command.eventId : 'once');
+      const previous = await tx.sessionMetric.findUnique({where:{id}});
+      const value = command.kind === 'ActivityTime' ? acceptedDuration(previous?.value ?? 0, command.value ?? 0, session.finishedAt ?? now, now) : 1;
+      await tx.sessionMetric.upsert({where:{id},create:{id,sessionId:session.id,kind:command.kind,value,recordedAt:now},update:command.kind === 'ActivityTime' ? {value} : {}}); return;
+    }
     if (command.type === 'saveReading') {
       if (session.status === 'Completed') return;
       if (command.sceneIndex >= session.story.scenes.length) throw new ApplicationError('Esta escena no existe.');
@@ -252,7 +260,7 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
       return;
     }
     if (session.status !== 'Completed') throw new ApplicationError('Primero terminemos la lectura.');
-    if (command.type === 'deferActivity') { await scheduleActivity(tx, family.id, child.id, session.id, plan, preferences, now); return; }
+    if (command.type === 'deferActivity') { await tx.sessionMetric.upsert({where:{id:session.id+':ActivityDeferred'},create:{id:session.id+':ActivityDeferred',sessionId:session.id,kind:'ActivityDeferred',value:1,recordedAt:now},update:{}}); await scheduleActivity(tx, family.id, child.id, session.id, plan, preferences, now); return; }
     if (command.type === 'completeActivity') {
       if (!session.attempt) throw new ApplicationError('No encontramos la actividad.');
       if (session.attempt.status === 'Completed') { result = { correct: true }; return; }

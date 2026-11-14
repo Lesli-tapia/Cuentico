@@ -11,7 +11,7 @@ export function Avatar() {
   const character = catalog.stories.find(s => s.character?.id === state?.child?.avatarCharacterId)?.character;
   return <span className="avatar">{character ? <img src={character.image} alt={character.name} /> : <UserRound aria-hidden="true" />}</span>;
 }
-export function Header({ back }: { back?: string }) { return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo white={usePathname() === "/libreria"} /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
+export function Header({ back }: { back?: string }) { const pathname = usePathname(); return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo white={pathname === "/libreria"} /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
 export function BottomNav() {
   const currentPath = usePathname(); const path = currentPath === '/coleccion' ? '/perfil' : currentPath;
   return <nav className="bottom-nav" aria-label="Navegación principal">{[

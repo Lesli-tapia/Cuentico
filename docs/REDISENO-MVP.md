@@ -29,3 +29,6 @@ ActiveClock y autosave existentes deben conservarse; la finalización y desbloqu
 Typecheck, Vitest, compilación y Playwright existentes; comprobar persistencia, lectura en segundo plano, actividad de secuencia y móviles. No hay script lint en package.json. Documentar cada comprobación efectivamente ejecutada.
 ## Editorial aplicada
 Se importan íntegros 41 párrafos de los cuatro DOCX de Cuentos, sin reescritura. Se mantienen seis escenas e IDs históricos para compatibilidad. Ilustración 5 de alas actualizada desde Cambios; video conservado sin reproducción automática. Originales intactos.
+
+## Registro futuro de métricas
+Migración aditiva SessionMetric en SQLite y PostgreSQL: consejo inicial separado de aperturas voluntarias, comienzo y tiempo activo de actividades, y aplazamiento. Sin reconstruir eventos históricos ausentes. Las claves fijas hacen idempotentes los registros iniciales; las aperturas voluntarias usan UUID. Aplicar migraciones antes de utilizar el nuevo servidor.

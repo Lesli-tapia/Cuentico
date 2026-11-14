@@ -1,10 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams, notFound } from 'next/navigation';
 import { ArrowUp, ArrowDown, Check, GripVertical, Heart, Sparkles } from 'lucide-react';
 import { Shell, RequireProfile, Button, PageTitle, ActionLink } from '@/components/ui';
 import { useApp } from '@/components/app-provider';
 import { findStory, type Story } from '@/modules/content/types';
+import { ActiveClock } from '@/modules/reader/active-clock';
 import { seededShuffle } from './domain';
 import type { Session } from '@/core/contracts';
 export default function ActivityView({ id }: { id: string }) {
@@ -19,6 +20,9 @@ function ActivityEngine({ story, session }: { story: Story; session: Session }) 
   const [dragged, setDragged] = useState<number | null>(null); const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState(''); const [correct, setCorrect] = useState(false);
   const steps = activity.type === 'GUESS_CHARACTER' ? [['Elige un personaje','El niño piensa en uno de los personajes de la historia.'],['¡A actuar!','Representa al personaje utilizando gestos o movimientos, sin decir su nombre.'],['Adivina quién es','El padre intenta descubrir qué personaje está representando.'],['Intercambien turnos','Ahora le toca al padre representar un personaje.']] : activity.type === 'FAVORITE_MOMENT' ? [['Recuerden la historia','Piensen en las escenas que más llamaron su atención.'],['Comparte tu momento favorito','El niño cuenta cuál fue su parte favorita.'],['Escucha otra opinión','El padre comparte su escena favorita.'],['Conversen juntos','Expliquen por qué eligieron esos momentos.']] : [['Observa las imágenes','Mira las escenas de la historia.'],['Ordena los momentos','Arrastra las ilustraciones para colocarlas según el orden en que sucedieron.'],['Comprueba tu respuesta','Revisa si la secuencia es correcta.']];
+  const activityClock=useRef<ActiveClock|null>(null);
+  const commandRef=useRef(command);commandRef.current=command;
+  useEffect(()=>{const initial=state?.metrics?.find(m=>m.sessionId===session.id&&m.kind==='ActivityTime')?.value??0;const clock=new ActiveClock(initial);activityClock.current=clock;clock.setVisible(!document.hidden);const save=()=>commandRef.current({type:'recordMetric',sessionId:session.id,eventId:'time',kind:'ActivityTime',value:clock.seconds()}).catch(()=>{});const visible=()=>{clock.setVisible(!document.hidden);if(document.hidden)void save()};const activity=()=>clock.activity();void commandRef.current({type:'recordMetric',sessionId:session.id,eventId:'start',kind:'ActivityStarted'}).catch(()=>{});const timer=setInterval(()=>{clock.seconds();void save()},5000);document.addEventListener('visibilitychange',visible);window.addEventListener('pointerdown',activity);return()=>{clearInterval(timer);document.removeEventListener('visibilitychange',visible);window.removeEventListener('pointerdown',activity);void save()};},[session.id]);
   const attempt = state?.attempts.find(a => a.sessionId === session.id);
   function move(from: number, to: number) {
     if (to < 0 || to >= order.length || busy || correct) return;
@@ -27,6 +31,7 @@ function ActivityEngine({ story, session }: { story: Story; session: Session }) 
   async function complete() {
     setBusy(true); setFeedback('');
     try {
+      await command({type:'recordMetric',sessionId:session.id,eventId:'time',kind:'ActivityTime',value:activityClock.current?.seconds()??0});
       const response = await command({ type: 'completeActivity', sessionId: session.id, ...(activity.type === 'SEQUENCE' ? { order } : {}) });
       if (response.result?.correct === false) setFeedback('¡Buen intento! Piensen qué pasó primero y vuelvan a probar.');
       else if (activity.type === 'SEQUENCE') { setCorrect(true); setFeedback('¡Lo lograron! La aventura está en orden.'); }
