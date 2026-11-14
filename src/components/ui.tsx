@@ -12,7 +12,7 @@ export function Avatar() {
   const character = catalog.stories.find(s => s.character?.id === state?.child?.avatarCharacterId)?.character;
   return <span className="avatar">{character ? <img src={character.image} alt={character.name} /> : <UserRound aria-hidden="true" />}</span>;
 }
-export function Header({ back }: { back?: string }) { const pathname = usePathname(); return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo white={pathname === "/libreria"} /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
+export function Header({ back }: { back?: string }) { const pathname = usePathname(); return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo white /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
 export function BottomNav() {
   const currentPath = usePathname(); const path = ['/coleccion','/configuraciones','/control-parental'].includes(currentPath) ? '/perfil' : currentPath;
   return <nav className="bottom-nav" aria-label="Navegación principal">{[
@@ -21,7 +21,7 @@ export function BottomNav() {
   ].map(({ href, label, Icon }) => <Link key={href} href={href} className={path === href ? 'active' : ''} aria-current={path === href ? 'page' : undefined}><Icon aria-hidden="true" /><span>{label}</span></Link>)}</nav>;
 }
 export function Shell({ children, back, immersive = false }: { children: ReactNode; back?: string; immersive?: boolean }) {
-  return <div className={`app-shell ${immersive ? 'immersive' : ''}`}><Header back={back} /><main id="main-content">{children}</main>{!immersive && <BottomNav />}</div>;
+  return <div className={`app-shell ${immersive ? 'immersive' : ''}`}><main id="main-content">{back && <Link href={back} className="icon-button page-back" aria-label="Volver"><ArrowLeft /></Link>}{children}</main>{!immersive && <BottomNav />}</div>;
 }
 export function RequireProfile({ children }: { children: ReactNode }) {
   const { state, loading, error, refresh } = useApp(); const router = useRouter();
