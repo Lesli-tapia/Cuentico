@@ -14,9 +14,10 @@ export class SceneEventPlayer {
   private context:AudioContext|null;private source:AudioBufferSourceNode|null=null;private gain:GainNode|null=null;
   private timers:ReturnType<typeof setTimeout>[]=[];private generation=0;private disposed=false;
   private buffers=new Map<string,Promise<AudioBuffer|null>>();private options:ReadingAudioOptions;
+  private page:{timeline:ReturnType<typeof readingTimeline>;start:number;played:Set<number>;queued:Set<number>;generation:number}|null=null;
   constructor(private muted=true,options:Partial<ReadingAudioOptions>={}){this.context=sharedContext;this.options={...readingAudioDefaults,...options};}
-  async unlock(){this.context=await unlockReaderAudio();}
-  setMuted(value:boolean){this.muted=value;if(value)this.clear();}
+  async unlock(){this.context=await unlockReaderAudio();this.schedulePage();}
+  setMuted(value:boolean){if(value===this.muted)return;this.muted=value;if(value){const page=this.page;this.clear();this.page=page;if(page){page.generation=this.generation;page.queued.clear();}}else this.schedulePage();}
   setVolume(value:number){this.options.effectsVolume=Math.max(0,Math.min(.35,Number.isFinite(value)?value:readingAudioDefaults.effectsVolume));if(this.gain)this.gain.gain.value=this.options.effectsVolume;}
   private stopAudio(){try{this.source?.stop()}catch{}this.source?.disconnect();this.gain?.disconnect();this.source=null;this.gain=null;}
   private buffer(asset:string){let pending=this.buffers.get(asset);if(!pending){pending=loadAsset(asset).then(async data=>{if(!data||!this.context)return null;try{return await this.context.decodeAudioData(data.slice(0))}catch{return null}});this.buffers.set(asset,pending);void pending.then(result=>{if(!result)this.buffers.delete(asset)});}return pending;}
@@ -32,20 +33,26 @@ export class SceneEventPlayer {
     source.start(0,offset,duration);
     source.onended=()=>{source.disconnect();gain.disconnect();if(this.source===source){this.source=null;this.gain=null}};
   }
-  enterPage(scene:StoryScene,reducedMotion:boolean,animate:(event:SceneEvent)=>void){
-    this.clear();this.disposed=false;const generation=this.generation,start=performance.now();
-    this.trigger(scene.events.filter(e=>e.eventType!=='SOUND_EFFECT'&&e.eventType!=='AMBIENT_AUDIO'),'ON_SCENE_ENTER',reducedMotion,animate);
-    const timeline=readingTimeline(scene,this.options);
-    // Fetch and decode all current-page effects before their deadlines, not at playback time.
-    for(const cue of timeline.cues){if(!cue.asset)continue;
+  private schedulePage(){
+    const page=this.page;if(!page||this.disposed||this.muted||this.context?.state!=='running')return;
+    const generation=page.generation;
+    for(const [index,cue] of page.timeline.cues.entries()){
+      if(!cue.asset||page.played.has(index)||page.queued.has(index))continue;
+      page.queued.add(index);
       void this.buffer(cue.asset).then(buffer=>{
-        if(!buffer||generation!==this.generation||this.disposed||this.muted)return;
-        const elapsed=performance.now()-start;
-        if(elapsed>cue.delayMs+this.options.maximumLatenessMs)return;
-        this.timers.push(setTimeout(()=>{if(generation===this.generation)void this.play(cue,generation)},Math.max(0,cue.delayMs-elapsed)));
+        if(!buffer||generation!==this.generation||this.disposed||this.muted){page.queued.delete(index);return;}
+        const elapsed=performance.now()-page.start;
+        if(elapsed>cue.delayMs+this.options.maximumLatenessMs){page.played.add(index);page.queued.delete(index);return;}
+        this.timers.push(setTimeout(()=>{page.queued.delete(index);if(generation===this.generation&&!page.played.has(index)){page.played.add(index);void this.play(cue,generation)}},Math.max(0,cue.delayMs-elapsed)));
       });
     }
-    return timeline;
+  }
+  enterPage(scene:StoryScene,reducedMotion:boolean,animate:(event:SceneEvent)=>void){
+    this.clear();this.disposed=false;
+    this.trigger(scene.events.filter(e=>e.eventType!=='SOUND_EFFECT'&&e.eventType!=='AMBIENT_AUDIO'),'ON_SCENE_ENTER',reducedMotion,animate);
+    const timeline=readingTimeline(scene,this.options);
+    this.page={timeline,start:performance.now(),played:new Set(),queued:new Set(),generation:this.generation};
+    this.schedulePage();return timeline;
   }
   trigger(events:SceneEvent[],trigger:SceneEvent['trigger'],reducedMotion:boolean,animate:(event:SceneEvent)=>void){
     const generation=this.generation;
@@ -55,6 +62,6 @@ export class SceneEventPlayer {
       this.timers.push(setTimeout(()=>{if(generation===this.generation&&!reducedMotion)animate(event)},Math.max(0,event.delayMs)));
     }
   }
-  clear(){this.generation++;this.timers.forEach(clearTimeout);this.timers=[];this.stopAudio();}
+  clear(){this.page=null;this.generation++;this.timers.forEach(clearTimeout);this.timers=[];this.stopAudio();}
   dispose(){this.clear();this.disposed=true;this.buffers.clear();this.context=null;}
 }
