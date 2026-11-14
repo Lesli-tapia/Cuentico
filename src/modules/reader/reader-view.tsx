@@ -45,14 +45,14 @@ function ReaderEngine({ session, story }: { session: Session; story: Story }) {
   useEffect(() => { player.current?.setMuted(muted); }, [muted]);
   useEffect(() => {
     setAnimation(''); player.current?.clear();
-    const effects = playedScenes.current.has(scene.id) ? scene.events.filter(e=>e.eventType!=='SOUND_EFFECT' && e.eventType!=='AMBIENT_AUDIO') : scene.events; playedScenes.current.add(scene.id);
+    const effects = playedScenes.current.has(scene.id) ? scene.events.filter(e=>e.eventType!=='SOUND_EFFECT' && e.eventType!=='AMBIENT_AUDIO') : scene.events;
     if (!paused) player.current?.trigger(effects, 'ON_SCENE_ENTER', reduced || window.matchMedia('(prefers-reduced-motion: reduce)').matches, event => setAnimation(event.eventType === 'PARTICLE_EFFECT' ? 'scene-particles' : 'scene-enter'));
     return () => player.current?.clear();
   }, [scene, paused, reduced]);
   async function navigate(next: number) {
     if (busy) return; setBusy(true); clock.current?.activity();
     try {
-      sceneRef.current = next; await save(); setSceneIndex(next); setShowTip(false); window.scrollTo({ top: 0, behavior: 'instant' });
+      sceneRef.current = next; await save(); playedScenes.current.add(scene.id); setSceneIndex(next); setShowTip(false); window.scrollTo({ top: 0, behavior: 'instant' });
     } catch { sceneRef.current = sceneIndex; } finally { setBusy(false); }
   }
   async function finish() {
