@@ -2,16 +2,12 @@
   "alas-1": {
     "sounds": [
       {
-        "asset": "/assets/audio/children-laugh.wav",
-        "wordOffset": 2,
-        "delayMs": 900,
-        "durationMs": 3000
-      },
-      {
-        "asset": "/assets/audio/birds.wav",
-        "wordOffset": 16,
-        "delayMs": 7000,
-        "durationMs": 3000
+        "asset": "/assets/audio/child-laugh-natural.mp3",
+        "anchor": "otros niños volar",
+        "wordOffset": 25,
+        "delayMs": 10000,
+        "durationMs": 2700,
+        "clipStartMs": 500
       }
     ]
   },
@@ -21,19 +17,22 @@
         "asset": "/assets/audio/steps.wav",
         "wordOffset": 14,
         "delayMs": 6000,
-        "durationMs": 1800
+        "durationMs": 1800,
+        "anchor": "al caminar"
       },
       {
         "asset": "/assets/audio/stumble.wav",
         "wordOffset": 26,
         "delayMs": 11300,
-        "durationMs": 650
+        "durationMs": 650,
+        "anchor": "tropezó"
       },
       {
         "asset": "/assets/audio/fall.wav",
         "wordOffset": 28,
         "delayMs": 12200,
-        "durationMs": 900
+        "durationMs": 900,
+        "anchor": "cayó"
       }
     ]
   },
@@ -43,7 +42,8 @@
         "asset": "/assets/audio/sparkle.wav",
         "wordOffset": 21,
         "delayMs": 9000,
-        "durationMs": 3000
+        "durationMs": 3000,
+        "anchor": "brillaban"
       }
     ],
     "video": "/assets/stories/alas/5.mp4"
@@ -150,32 +150,38 @@
         "asset": "/assets/audio/sad-sigh.wav",
         "wordOffset": 4,
         "delayMs": 1700,
-        "durationMs": 3000
+        "durationMs": 3000,
+        "anchor": "tristeza"
       }
     ]
   },
   "alas-4": {
     "sounds": [
       {
-        "asset": "/assets/audio/child-wow.wav",
-        "wordOffset": 7,
-        "delayMs": 2800,
-        "durationMs": 1500
+        "asset": "/assets/audio/child-reactions-natural.mp3",
+        "anchor": "admiración",
+        "wordOffset": 21,
+        "delayMs": 9000,
+        "durationMs": 2300,
+        "clipStartMs": 0
       }
     ]
   },
   "alas-6": {
     "sounds": [
       {
-        "asset": "/assets/audio/children-laugh.wav",
-        "wordOffset": 4,
-        "delayMs": 1800,
-        "durationMs": 3000
+        "asset": "/assets/audio/child-laugh-natural.mp3",
+        "anchor": "jugaba feliz",
+        "wordOffset": 15,
+        "delayMs": 6500,
+        "durationMs": 2600,
+        "clipStartMs": 4500
       },
       {
         "asset": "/assets/audio/steps.wav",
-        "wordOffset": 14,
-        "delayMs": 6200,
+        "anchor": "jugaba feliz",
+        "wordOffset": 15,
+        "delayMs": 6500,
         "durationMs": 1800
       }
     ]

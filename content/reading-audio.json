@@ -1,0 +1,7 @@
+{
+  "wordsPerMinute": 60,
+  "effectsVolume": 0.18,
+  "minimumDelayMs": 1500,
+  "gapMs": 650,
+  "maximumLatenessMs": 1200
+}

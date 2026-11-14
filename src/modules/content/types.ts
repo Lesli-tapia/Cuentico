@@ -13,6 +13,11 @@ export interface SceneEvent {
   delayMs: number;
   asset: string | null;
   durationMs: number;
+  wordOffset?: number;
+  anchor?: string;
+  startFraction?: number;
+  clipStartMs?: number;
+  volume?: number;
   enabled: boolean;
 }
 

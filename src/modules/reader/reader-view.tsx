@@ -9,7 +9,7 @@ import { findStory, tips, type Story } from '@/modules/content/types';
 import type { Session } from '@/core/contracts';
 import { selectTips } from './select-tips';
 import { ActiveClock } from './active-clock';
-import { SceneEventPlayer } from './scene-events';
+import { SceneEventPlayer, preloadReaderAudio } from './scene-events';
 export default function ReaderView({ id }: { id: string }) {
   const { state } = useApp(); const search = useSearchParams(); const story = findStory(id);
   const session = state?.sessions.filter(s => s.storyId === id && (!search.get('sesion') || s.id === search.get('sesion'))).sort((a, b) => b.startedAt.localeCompare(a.startedAt))[0];
@@ -23,7 +23,7 @@ function ReaderEngine({ session, story }: { session: Session; story: Story }) {
   const pausedRef = useRef(false); const [confirmExit,setConfirmExit]=useState(false); const [textSize,setTextSize]=useState(20); const [showText,setShowText]=useState(false); const [sound,setSound]=useState(true);
   const [audioNote, setAudioNote] = useState(false); const [selectedTips,setSelectedTips] = useState<string[]>([]);
   const [animation, setAnimation] = useState(''); const [elapsed, setElapsed] = useState(session.activeDurationSeconds);
-  const video = useRef<HTMLVideoElement | null>(null); const playedScenes = useRef(new Set<string>());
+  const video = useRef<HTMLVideoElement | null>(null);
   const clock = useRef<ActiveClock | null>(null); const player = useRef<SceneEventPlayer | null>(null);
   const commandRef = useRef(command); commandRef.current = command;
   const scene = story.scenes[sceneIndex]; const muted = !sound;
@@ -33,7 +33,7 @@ function ReaderEngine({ session, story }: { session: Session; story: Story }) {
   const save = useCallback(async (pause = false) => commandRef.current({ type: 'saveReading', sessionId: session.id, sceneIndex: sceneRef.current, activeDurationSeconds: clock.current?.seconds() ?? session.activeDurationSeconds, pause }), [session.id, session.activeDurationSeconds]);
   useEffect(() => {
     clock.current = new ActiveClock(session.activeDurationSeconds); clock.current.setVisible(!document.hidden);
-    player.current = new SceneEventPlayer(muted);
+    player.current = new SceneEventPlayer(muted); void preloadReaderAudio(story.scenes.flatMap(scene=>scene.events));
     const activity = () => { clock.current?.activity(); void player.current?.unlock(); };
     const visibility = () => { clock.current?.setVisible(!document.hidden); if (document.hidden) { video.current?.pause(); player.current?.clear(); void save(true).catch(() => {}); } };
     const flush = () => { const payload = { type: 'saveReading', sessionId: session.id, sceneIndex: sceneRef.current, activeDurationSeconds: clock.current?.seconds() ?? session.activeDurationSeconds, pause: true }; navigator.sendBeacon('/api/app', new Blob([JSON.stringify(payload)], { type: 'application/json' })); };
@@ -48,14 +48,13 @@ function ReaderEngine({ session, story }: { session: Session; story: Story }) {
   useEffect(() => { player.current?.setMuted(muted); }, [muted]);
   useEffect(() => {
     setAnimation(''); player.current?.clear();
-    const effects = playedScenes.current.has(scene.id) ? scene.events.filter(e=>e.eventType!=='SOUND_EFFECT' && e.eventType!=='AMBIENT_AUDIO') : scene.events;
-    if (!paused) player.current?.trigger(effects, 'ON_SCENE_ENTER', reduced || window.matchMedia('(prefers-reduced-motion: reduce)').matches, event => setAnimation(event.eventType === 'PARTICLE_EFFECT' ? 'scene-particles' : 'scene-enter'));
+    if (!paused) player.current?.enterPage(scene, reduced || window.matchMedia('(prefers-reduced-motion: reduce)').matches, event => setAnimation(event.eventType === 'PARTICLE_EFFECT' ? 'scene-particles' : 'scene-enter'));
     return () => player.current?.clear();
-  }, [scene, paused, reduced]);
+  }, [scene.id, paused]);
   async function navigate(next: number) {
     if (busy) return; setBusy(true); clock.current?.activity();
     try {
-      sceneRef.current = next; await save(); playedScenes.current.add(scene.id); setSceneIndex(next); setShowTip(false); window.scrollTo({ top: 0, behavior: 'instant' });
+      sceneRef.current = next; await save(); setSceneIndex(next); setShowTip(false); window.scrollTo({ top: 0, behavior: 'instant' });
     } catch { sceneRef.current = sceneIndex; } finally { setBusy(false); }
   }
   async function finish() {

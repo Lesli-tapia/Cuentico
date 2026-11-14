@@ -42,19 +42,14 @@
                                                               "sceneId":  "alas-1",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  900,
-                                                              "asset":  "/assets/audio/children-laugh.wav",
-                                                              "durationMs":  3000,
-                                                              "enabled":  true
-                                                          },
-                                                          {
-                                                              "sceneId":  "alas-1",
-                                                              "eventType":  "SOUND_EFFECT",
-                                                              "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  7000,
-                                                              "asset":  "/assets/audio/birds.wav",
-                                                              "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "delayMs":  10000,
+                                                              "asset":  "/assets/audio/child-laugh-natural.mp3",
+                                                              "durationMs":  2700,
+                                                              "enabled":  true,
+                                                              "wordOffset":  25,
+                                                              "anchor":  "otros niños volar",
+                                                              "clipStartMs":  500,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -82,7 +77,11 @@
                                                               "delayMs":  1700,
                                                               "asset":  "/assets/audio/sad-sigh.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  "tristeza",
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -110,7 +109,11 @@
                                                               "delayMs":  6000,
                                                               "asset":  "/assets/audio/steps.wav",
                                                               "durationMs":  1800,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  14,
+                                                              "anchor":  "al caminar",
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           },
                                                           {
                                                               "sceneId":  "alas-3",
@@ -119,7 +122,11 @@
                                                               "delayMs":  11300,
                                                               "asset":  "/assets/audio/stumble.wav",
                                                               "durationMs":  650,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  26,
+                                                              "anchor":  "tropezó",
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           },
                                                           {
                                                               "sceneId":  "alas-3",
@@ -128,7 +135,11 @@
                                                               "delayMs":  12200,
                                                               "asset":  "/assets/audio/fall.wav",
                                                               "durationMs":  900,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  28,
+                                                              "anchor":  "cayó",
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -156,10 +167,14 @@
                                                               "sceneId":  "alas-4",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  2800,
-                                                              "asset":  "/assets/audio/child-wow.wav",
-                                                              "durationMs":  1500,
-                                                              "enabled":  true
+                                                              "delayMs":  9000,
+                                                              "asset":  "/assets/audio/child-reactions-natural.mp3",
+                                                              "durationMs":  2300,
+                                                              "enabled":  true,
+                                                              "wordOffset":  21,
+                                                              "anchor":  "admiración",
+                                                              "clipStartMs":  0,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -187,7 +202,11 @@
                                                               "delayMs":  9000,
                                                               "asset":  "/assets/audio/sparkle.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  21,
+                                                              "anchor":  "brillaban",
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ],
                                            "video":  "/assets/stories/alas/5.mp4"
@@ -214,19 +233,27 @@
                                                               "sceneId":  "alas-6",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  1800,
-                                                              "asset":  "/assets/audio/children-laugh.wav",
-                                                              "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "delayMs":  6500,
+                                                              "asset":  "/assets/audio/child-laugh-natural.mp3",
+                                                              "durationMs":  2600,
+                                                              "enabled":  true,
+                                                              "wordOffset":  15,
+                                                              "anchor":  "jugaba feliz",
+                                                              "clipStartMs":  4500,
+                                                              "volume":  1
                                                           },
                                                           {
                                                               "sceneId":  "alas-6",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  6200,
+                                                              "delayMs":  6500,
                                                               "asset":  "/assets/audio/steps.wav",
                                                               "durationMs":  1800,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  15,
+                                                              "anchor":  "jugaba feliz",
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        }
@@ -284,7 +311,11 @@
                                                               "delayMs":  857,
                                                               "asset":  "/assets/audio/birds.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  2,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -312,7 +343,11 @@
                                                               "delayMs":  3429,
                                                               "asset":  "/assets/audio/steps.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  8,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -340,7 +375,11 @@
                                                               "delayMs":  1600,
                                                               "asset":  "/assets/audio/wind.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -368,7 +407,11 @@
                                                               "delayMs":  6000,
                                                               "asset":  "/assets/audio/water.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  14,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           },
                                                           {
                                                               "sceneId":  "nilo-4",
@@ -377,7 +420,11 @@
                                                               "delayMs":  15429,
                                                               "asset":  "/assets/audio/rain.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  36,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -405,7 +452,11 @@
                                                               "delayMs":  1600,
                                                               "asset":  "/assets/audio/wind.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -483,7 +534,11 @@
                                                               "delayMs":  857,
                                                               "asset":  "/assets/audio/birds.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  2,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -513,7 +568,11 @@
                                                               "delayMs":  1600,
                                                               "asset":  "/assets/audio/wind.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -542,7 +601,11 @@
                                                               "delayMs":  1600,
                                                               "asset":  "/assets/audio/wind.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -571,7 +634,11 @@
                                                               "delayMs":  7286,
                                                               "asset":  "/assets/audio/roar.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  17,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -600,7 +667,11 @@
                                                               "delayMs":  13714,
                                                               "asset":  "/assets/audio/water.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  32,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -631,7 +702,11 @@
                                                               "delayMs":  1600,
                                                               "asset":  "/assets/audio/wind.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        }
@@ -708,7 +783,11 @@
                                                               "delayMs":  1600,
                                                               "asset":  "/assets/audio/steps.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -737,7 +816,11 @@
                                                               "delayMs":  1600,
                                                               "asset":  "/assets/audio/steps.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  4,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -766,7 +849,11 @@
                                                               "delayMs":  12857,
                                                               "asset":  "/assets/audio/steps.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  30,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -795,7 +882,11 @@
                                                               "delayMs":  2143,
                                                               "asset":  "/assets/audio/steps.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  5,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        },
@@ -824,7 +915,11 @@
                                                               "delayMs":  11143,
                                                               "asset":  "/assets/audio/kitchen.wav",
                                                               "durationMs":  3000,
-                                                              "enabled":  true
+                                                              "enabled":  true,
+                                                              "wordOffset":  26,
+                                                              "anchor":  null,
+                                                              "clipStartMs":  null,
+                                                              "volume":  1
                                                           }
                                                       ]
                                        }
