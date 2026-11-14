@@ -23,3 +23,6 @@ Los nombres anteriores son nombres solicitados para archivos futuros: **no exist
 
 ## Incorporación posterior
 Copiar las grabaciones en public/assets/audio, anotar créditos, asignar asset real y enabled:true al único cue de la página en content/scene-media.json, y ejecutar npm run content:import y npm run db:seed. El importador rechaza más de un efecto por página para Elian. Mantener manual:true, anchor y label. No es necesario cambiar el reproductor ni el diseño.
+
+## Validacion del 14 de noviembre de 2026
+TypeScript aprobado. 49 pruebas unitarias y las 3 pruebas dirigidas de navegador (seleccion manual y regresiones del lector) aprobadas sobre compilacion de produccion. Importador -Verify aprobado. Se actualizo el catalogo local mediante upsert sin borrar progreso. Pendientes las tres grabaciones indicadas; las paginas 2, 3 y 6 no ofrecen reproduccion hasta incorporarlas. No se modificaron diseno, navegacion ni estructura narrativa.
