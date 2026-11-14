@@ -2,21 +2,21 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode, type ButtonHTMLAttributes } from 'react';
-import { ArrowLeft, ArrowRight, BookOpen, Home, Star, UserRound, Lightbulb, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, Home, Heart, Compass, Star, UserRound, Lightbulb, X } from 'lucide-react';
 import { useApp } from './app-provider';
 import catalog from '../../content/catalog.json';
-export function Logo() { return <Link href="/" aria-label="Cuentico, inicio" className="logo"><img src="/assets/logo.svg" alt="Cuentico" width="210" height="52" /></Link>; }
+export function Logo({ white = false }: { white?: boolean }) { return <Link href="/" aria-label="Cuentico, inicio" className="logo"><img src={white ? "/assets/logo-white.png" : "/assets/logo-horizontal.png"} alt="Cuentico" width="210" height="52" /></Link>; }
 export function Avatar() {
   const { state } = useApp();
   const character = catalog.stories.find(s => s.character?.id === state?.child?.avatarCharacterId)?.character;
   return <span className="avatar">{character ? <img src={character.image} alt={character.name} /> : <UserRound aria-hidden="true" />}</span>;
 }
-export function Header({ back }: { back?: string }) { return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
+export function Header({ back }: { back?: string }) { return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo white={usePathname() === "/libreria"} /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
 export function BottomNav() {
   const currentPath = usePathname(); const path = currentPath === '/coleccion' ? '/perfil' : currentPath;
   return <nav className="bottom-nav" aria-label="Navegación principal">{[
     { href: '/', label: 'Inicio', Icon: Home }, { href: '/libreria', label: 'Librería', Icon: BookOpen },
-    { href: '/favoritos', label: 'Favoritos', Icon: Star }, { href: '/perfil', label: 'Perfil', Icon: UserRound }
+    { href: '/favoritos', label: 'Favoritos', Icon: Heart }, { href: '/explorar', label: 'Explorar', Icon: Compass }
   ].map(({ href, label, Icon }) => <Link key={href} href={href} className={path === href ? 'active' : ''} aria-current={path === href ? 'page' : undefined}><Icon aria-hidden="true" /><span>{label}</span></Link>)}</nav>;
 }
 export function Shell({ children, back, immersive = false }: { children: ReactNode; back?: string; immersive?: boolean }) {

@@ -5,7 +5,7 @@
 @font-face { font-family: Poppins; src: url('/assets/fonts/Poppins-SemiBold.ttf') format('truetype'); font-weight: 600; font-display: swap; }
 @font-face { font-family: Poppins; src: url('/assets/fonts/Poppins-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 :root {
-  --cream: #FBEFE3; --turquoise: #51BAB3; --coral: #E36849; --yellow: #FFBE30; --pastel-blue: #BBD8DE;
+  --cream: #FBF1E5; --turquoise: #4CBCB4; --coral: #F36D43; --yellow: #FEBD2D; --pastel-blue: #81BCD1;
   --ink: #243B5C; --muted: #526780; --white: #fff; --mint: #e0f2ef; --line: #dbe2e7;
   --radius: 26px; --radius-sm: 16px; --shadow: 0 8px 30px #243b5c08;
   --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 32px;
@@ -291,3 +291,12 @@ input[type='checkbox'] { width: 20px; height: 20px; accent-color: #29877f; flex-
   .error-banner span { flex-basis: 100%; }
 }
 @media (max-width: 360px) { .app-shell, .reader-shell { padding-left: 16px; padding-right: 16px; } .recommended img { height: 240px; } .recommended h2 { font-size: 1.2rem; } .recommended .badge { font-size: .58rem; } .bottom-nav a { font-size: .7rem; } .story-image-link { width: 90px; } .character-image { width: 100px; height: 100px; } }
+
+/* Identidad oficial, muestreada de Branding/Paleta cromática.png. */
+.button { background: var(--yellow); font-weight: 500; }
+.button.secondary { background: var(--pastel-blue); border-color: transparent; }
+.button:active:not(:disabled) { transform: scale(.98); }
+.logo img { width: 190px; height: 52px; object-fit: contain; }
+.app-header:has(img[src='/assets/logo-white.png']) { background: var(--turquoise); padding: 16px; border-radius: 20px; }
+.app-header:has(img[src='/assets/logo-white.png']) > a:last-child { color: white; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
