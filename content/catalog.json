@@ -44,14 +44,14 @@
                                                               "trigger":  "AFTER_DELAY",
                                                               "delayMs":  10000,
                                                               "asset":  "/assets/audio/child-laugh-natural.mp3",
-                                                              "durationMs":  2700,
+                                                              "durationMs":  1800,
                                                               "enabled":  true,
                                                               "manual":  true,
                                                               "label":  "Risas de niños",
                                                               "wordOffset":  25,
                                                               "anchor":  "otros niños volar",
                                                               "clipStartMs":  500,
-                                                              "volume":  1
+                                                              "volume":  0.8
                                                           }
                                                       ]
                                        },
@@ -76,16 +76,16 @@
                                                               "sceneId":  "alas-2",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  1700,
-                                                              "asset":  "/assets/audio/sad-sigh.wav",
-                                                              "durationMs":  3000,
-                                                              "enabled":  true,
+                                                              "delayMs":  null,
+                                                              "asset":  null,
+                                                              "durationMs":  1200,
+                                                              "enabled":  false,
                                                               "manual":  true,
                                                               "label":  "Suspiro de tristeza",
-                                                              "wordOffset":  4,
+                                                              "wordOffset":  null,
                                                               "anchor":  "tristeza",
-                                                              "clipStartMs":  null,
-                                                              "volume":  1
+                                                              "clipStartMs":  0,
+                                                              "volume":  0.8
                                                           }
                                                       ]
                                        },
@@ -110,46 +110,16 @@
                                                               "sceneId":  "alas-3",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  6000,
-                                                              "asset":  "/assets/audio/steps.wav",
-                                                              "durationMs":  1800,
-                                                              "enabled":  true,
-                                                              "manual":  true,
-                                                              "label":  "Pasos",
-                                                              "wordOffset":  14,
-                                                              "anchor":  "al caminar",
-                                                              "clipStartMs":  null,
-                                                              "volume":  1
-                                                          },
-                                                          {
-                                                              "sceneId":  "alas-3",
-                                                              "eventType":  "SOUND_EFFECT",
-                                                              "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  11300,
-                                                              "asset":  "/assets/audio/stumble.wav",
-                                                              "durationMs":  650,
-                                                              "enabled":  true,
-                                                              "manual":  true,
-                                                              "label":  "Tropiezo",
-                                                              "wordOffset":  26,
-                                                              "anchor":  "tropezó",
-                                                              "clipStartMs":  null,
-                                                              "volume":  1
-                                                          },
-                                                          {
-                                                              "sceneId":  "alas-3",
-                                                              "eventType":  "SOUND_EFFECT",
-                                                              "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  12200,
-                                                              "asset":  "/assets/audio/fall.wav",
-                                                              "durationMs":  900,
-                                                              "enabled":  true,
+                                                              "delayMs":  null,
+                                                              "asset":  null,
+                                                              "durationMs":  800,
+                                                              "enabled":  false,
                                                               "manual":  true,
                                                               "label":  "Caída suave",
-                                                              "wordOffset":  28,
+                                                              "wordOffset":  null,
                                                               "anchor":  "cayó",
-                                                              "clipStartMs":  null,
-                                                              "volume":  1
+                                                              "clipStartMs":  0,
+                                                              "volume":  0.8
                                                           }
                                                       ]
                                        },
@@ -179,14 +149,14 @@
                                                               "trigger":  "AFTER_DELAY",
                                                               "delayMs":  9000,
                                                               "asset":  "/assets/audio/child-reactions-natural.mp3",
-                                                              "durationMs":  2300,
+                                                              "durationMs":  1800,
                                                               "enabled":  true,
                                                               "manual":  true,
                                                               "label":  "¡Wooow!",
                                                               "wordOffset":  21,
                                                               "anchor":  "admiración",
                                                               "clipStartMs":  0,
-                                                              "volume":  1
+                                                              "volume":  0.8
                                                           }
                                                       ]
                                        },
@@ -213,14 +183,14 @@
                                                               "trigger":  "AFTER_DELAY",
                                                               "delayMs":  9000,
                                                               "asset":  "/assets/audio/sparkle.wav",
-                                                              "durationMs":  3000,
+                                                              "durationMs":  1800,
                                                               "enabled":  true,
                                                               "manual":  true,
                                                               "label":  "Destellos mágicos",
                                                               "wordOffset":  21,
                                                               "anchor":  "brillaban",
                                                               "clipStartMs":  null,
-                                                              "volume":  1
+                                                              "volume":  0.55
                                                           }
                                                       ],
                                            "video":  "/assets/stories/alas/5.mp4"
@@ -247,31 +217,16 @@
                                                               "sceneId":  "alas-6",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  6500,
-                                                              "asset":  "/assets/audio/child-laugh-natural.mp3",
-                                                              "durationMs":  2600,
-                                                              "enabled":  true,
-                                                              "manual":  true,
-                                                              "label":  "Risas de niños",
-                                                              "wordOffset":  15,
-                                                              "anchor":  "jugaba feliz",
-                                                              "clipStartMs":  4500,
-                                                              "volume":  1
-                                                          },
-                                                          {
-                                                              "sceneId":  "alas-6",
-                                                              "eventType":  "SOUND_EFFECT",
-                                                              "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  6500,
-                                                              "asset":  "/assets/audio/steps.wav",
+                                                              "delayMs":  null,
+                                                              "asset":  null,
                                                               "durationMs":  1800,
-                                                              "enabled":  true,
+                                                              "enabled":  false,
                                                               "manual":  true,
-                                                              "label":  "Pasos corriendo",
-                                                              "wordOffset":  15,
+                                                              "label":  "Niños corriendo sobre hierba",
+                                                              "wordOffset":  null,
                                                               "anchor":  "jugaba feliz",
-                                                              "clipStartMs":  null,
-                                                              "volume":  1
+                                                              "clipStartMs":  0,
+                                                              "volume":  0.8
                                                           }
                                                       ]
                                        }
