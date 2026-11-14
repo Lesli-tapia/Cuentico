@@ -367,3 +367,5 @@ body { padding-top: calc(var(--header-height) + env(safe-area-inset-top)); }
 .inline-sound:disabled { opacity:.45; cursor:default; }
 @keyframes sound-wave { from {transform:scale(.85)} to {transform:scale(1.12)} }
 @media(prefers-reduced-motion:reduce) { .inline-sound.is-playing svg {animation:none} }
+
+.sound-phrase { white-space:nowrap; }
