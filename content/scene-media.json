@@ -7,7 +7,9 @@
         "wordOffset": 25,
         "delayMs": 10000,
         "durationMs": 2700,
-        "clipStartMs": 500
+        "clipStartMs": 500,
+        "manual": true,
+        "label": "Risas de niños"
       }
     ]
   },
@@ -18,21 +20,27 @@
         "wordOffset": 14,
         "delayMs": 6000,
         "durationMs": 1800,
-        "anchor": "al caminar"
+        "anchor": "al caminar",
+        "manual": true,
+        "label": "Pasos"
       },
       {
         "asset": "/assets/audio/stumble.wav",
         "wordOffset": 26,
         "delayMs": 11300,
         "durationMs": 650,
-        "anchor": "tropezó"
+        "anchor": "tropezó",
+        "manual": true,
+        "label": "Tropiezo"
       },
       {
         "asset": "/assets/audio/fall.wav",
         "wordOffset": 28,
         "delayMs": 12200,
         "durationMs": 900,
-        "anchor": "cayó"
+        "anchor": "cayó",
+        "manual": true,
+        "label": "Caída suave"
       }
     ]
   },
@@ -43,7 +51,9 @@
         "wordOffset": 21,
         "delayMs": 9000,
         "durationMs": 3000,
-        "anchor": "brillaban"
+        "anchor": "brillaban",
+        "manual": true,
+        "label": "Destellos mágicos"
       }
     ],
     "video": "/assets/stories/alas/5.mp4"
@@ -151,7 +161,9 @@
         "wordOffset": 4,
         "delayMs": 1700,
         "durationMs": 3000,
-        "anchor": "tristeza"
+        "anchor": "tristeza",
+        "manual": true,
+        "label": "Suspiro de tristeza"
       }
     ]
   },
@@ -163,7 +175,9 @@
         "wordOffset": 21,
         "delayMs": 9000,
         "durationMs": 2300,
-        "clipStartMs": 0
+        "clipStartMs": 0,
+        "manual": true,
+        "label": "¡Wooow!"
       }
     ]
   },
@@ -175,14 +189,18 @@
         "wordOffset": 15,
         "delayMs": 6500,
         "durationMs": 2600,
-        "clipStartMs": 4500
+        "clipStartMs": 4500,
+        "manual": true,
+        "label": "Risas de niños"
       },
       {
         "asset": "/assets/audio/steps.wav",
         "anchor": "jugaba feliz",
         "wordOffset": 15,
         "delayMs": 6500,
-        "durationMs": 1800
+        "durationMs": 1800,
+        "manual": true,
+        "label": "Pasos corriendo"
       }
     ]
   },

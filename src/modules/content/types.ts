@@ -19,6 +19,8 @@ export interface SceneEvent {
   clipStartMs?: number;
   volume?: number;
   enabled: boolean;
+  manual?: boolean;
+  label?: string;
 }
 
 export interface StoryScene {

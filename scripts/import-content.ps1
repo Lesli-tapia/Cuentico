@@ -62,7 +62,7 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
         $taskMedia = $taskMediaConfig.$taskSceneId
         if ($taskMedia.video) { $taskScenes[-1]['video'] = $taskMedia.video }
         foreach ($taskSound in $taskMedia.sounds) {
-            $taskScenes[-1].events += [ordered]@{sceneId=$taskSceneId;eventType='SOUND_EFFECT';trigger='AFTER_DELAY';delayMs=$taskSound.delayMs;asset=$taskSound.asset;durationMs=$taskSound.durationMs;enabled=$true;wordOffset=$taskSound.wordOffset;anchor=$taskSound.anchor;clipStartMs=$taskSound.clipStartMs;volume=$(if ($null -ne $taskSound.volume) {$taskSound.volume} else {1})}
+            $taskScenes[-1].events += [ordered]@{sceneId=$taskSceneId;eventType='SOUND_EFFECT';trigger='AFTER_DELAY';delayMs=$taskSound.delayMs;asset=$taskSound.asset;durationMs=$taskSound.durationMs;enabled=$true;manual=($taskSound.manual -eq $true);label=$taskSound.label;wordOffset=$taskSound.wordOffset;anchor=$taskSound.anchor;clipStartMs=$taskSound.clipStartMs;volume=$(if ($null -ne $taskSound.volume) {$taskSound.volume} else {1})}
         }
         $taskStart = $taskEnd+1
     }

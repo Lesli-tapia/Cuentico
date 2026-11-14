@@ -13,13 +13,16 @@ export async function unlockReaderAudio(){if(typeof window==='undefined'||!windo
 export class SceneEventPlayer {
   private context:AudioContext|null;private source:AudioBufferSourceNode|null=null;private gain:GainNode|null=null;
   private timers:ReturnType<typeof setTimeout>[]=[];private generation=0;private disposed=false;
+  private playbackListener:(event:SceneEvent|null)=>void=()=>{};
+  setPlaybackListener(listener:(event:SceneEvent|null)=>void){this.playbackListener=listener;}
+  async playManual(event:SceneEvent){this.clear();const generation=this.generation;await this.unlock();if(generation!==this.generation||this.disposed)return;await this.play(event,generation);}
   private buffers=new Map<string,Promise<AudioBuffer|null>>();private options:ReadingAudioOptions;
   private page:{timeline:ReturnType<typeof readingTimeline>;start:number;played:Set<number>;queued:Set<number>;generation:number}|null=null;
   constructor(private muted=true,options:Partial<ReadingAudioOptions>={}){this.context=sharedContext;this.options={...readingAudioDefaults,...options};}
   async unlock(){this.context=await unlockReaderAudio();this.schedulePage();}
   setMuted(value:boolean){if(value===this.muted)return;this.muted=value;if(value){const page=this.page;this.clear();this.page=page;if(page){page.generation=this.generation;page.queued.clear();}}else this.schedulePage();}
   setVolume(value:number){this.options.effectsVolume=Math.max(0,Math.min(.35,Number.isFinite(value)?value:readingAudioDefaults.effectsVolume));if(this.gain)this.gain.gain.value=this.options.effectsVolume;}
-  private stopAudio(){try{this.source?.stop()}catch{}this.source?.disconnect();this.gain?.disconnect();this.source=null;this.gain=null;}
+  private stopAudio(){try{this.source?.stop()}catch{}this.source?.disconnect();this.gain?.disconnect();this.source=null;this.gain=null;this.playbackListener(null);}
   private buffer(asset:string){let pending=this.buffers.get(asset);if(!pending){pending=loadAsset(asset).then(async data=>{if(!data||!this.context)return null;try{return await this.context.decodeAudioData(data.slice(0))}catch{return null}});this.buffers.set(asset,pending);void pending.then(result=>{if(!result)this.buffers.delete(asset)});}return pending;}
   private async play(event:SceneEvent,generation:number){
     if(!event.asset||this.muted||this.disposed||generation!==this.generation||this.context?.state!=='running')return;
@@ -30,8 +33,9 @@ export class SceneEventPlayer {
     source.connect(gain);gain.connect(this.context.destination);this.source=source;this.gain=gain;
     const offset=Math.max(0,(event.clipStartMs??0)/1000),duration=Math.min(event.durationMs/1000,buffer.duration-offset);
     if(duration<=0)return;
+    this.playbackListener(event);
     source.start(0,offset,duration);
-    source.onended=()=>{source.disconnect();gain.disconnect();if(this.source===source){this.source=null;this.gain=null}};
+    source.onended=()=>{source.disconnect();gain.disconnect();if(this.source===source){this.source=null;this.gain=null;this.playbackListener(null)}};
   }
   private schedulePage(){
     const page=this.page;if(!page||this.disposed||this.muted||this.context?.state!=='running')return;

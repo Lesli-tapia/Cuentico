@@ -360,3 +360,10 @@ body { padding-top: calc(var(--header-height) + env(safe-area-inset-top)); }
 .button.outlined { background:white; border:1.5px solid var(--pastel-blue); color:var(--ink); }
 .transition-tip { min-height:calc(100dvh - var(--header-height)); gap:18px; }
 .transition-tip .tip-card h2 { margin:10px 0; }
+
+.inline-sound { display:inline-flex; vertical-align:middle; align-items:center; justify-content:center; width:34px; height:34px; padding:5px; margin:0 4px; border:1.5px solid var(--turquoise); border-radius:50%; background:var(--pastel-blue); color:var(--ink); cursor:pointer; }
+.inline-sound.is-playing { background:var(--yellow); border-color:var(--coral); }
+.inline-sound.is-playing svg { animation:sound-wave .8s ease-in-out infinite alternate; }
+.inline-sound:disabled { opacity:.45; cursor:default; }
+@keyframes sound-wave { from {transform:scale(.85)} to {transform:scale(1.12)} }
+@media(prefers-reduced-motion:reduce) { .inline-sound.is-playing svg {animation:none} }

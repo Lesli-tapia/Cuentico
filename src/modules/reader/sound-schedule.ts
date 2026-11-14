@@ -7,7 +7,7 @@ export function readingTimeline(scene:Pick<StoryScene,'paragraphs'|'events'>,opt
   const config={...defaults,...options};
   const speed=Math.min(300,Math.max(20,Number.isFinite(config.wordsPerMinute)?config.wordsPerMinute:defaults.wordsPerMinute));
   const text=scene.paragraphs.join(' '),words=countWords(text),durationMs=words/speed*60000;
-  const sounds=scene.events.filter(e=>e.enabled&&e.asset&&(e.eventType==='SOUND_EFFECT'||e.eventType==='AMBIENT_AUDIO'));
+  const sounds=scene.events.filter(e=>e.enabled&&!e.manual&&e.asset&&(e.eventType==='SOUND_EFFECT'||e.eventType==='AMBIENT_AUDIO'));
   let previousEnd=0;
   const cues=sounds.map((event,index)=>{
     const anchorIndex=event.anchor?text.toLocaleLowerCase('es').indexOf(event.anchor.toLocaleLowerCase('es')):-1;
