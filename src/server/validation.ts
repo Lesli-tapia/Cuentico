@@ -16,7 +16,7 @@ export const planSchema = z.object({
 }).strict();
 export const profileSchema = z.object({
   name: z.string().trim().min(1, 'Escribe un nombre o alias.').max(30),
-  age: z.union([z.literal(6), z.literal(7)]),
+  age: z.union([z.literal(6), z.literal(7), z.literal(8), z.literal(9)]),
   interests: z.array(z.enum(['aventuras', 'fantasía', 'animales', 'naturaleza'])).min(1).max(4)
     .refine(items => new Set(items).size === items.length),
   plan: planSchema, preferences: preferencesSchema

@@ -108,7 +108,7 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
   state: AppState; result?: { sessionId?: string; correct?: boolean }; newToken?: string;
 }> {
   const parsed = commandSchema.safeParse(raw);
-  if (!parsed.success) throw new ApplicationError('Revisa los datos enviados. El perfil necesita una edad de 6 o 7 años y una rutina válida.');
+  if (!parsed.success) throw new ApplicationError('Revisa los datos enviados. El perfil necesita una edad de 6 a 9 años y una rutina válida.');
   const command: Command = parsed.data;
   client ??= getDatabaseClient();
   let newToken: string | undefined;
