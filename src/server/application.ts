@@ -233,6 +233,12 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
     if (command.type === 'recordMetric') {
       const id = session.id + ':' + command.kind + ':' + (command.kind === 'VoluntaryTip' ? command.eventId : 'once');
       const previous = await tx.sessionMetric.findUnique({where:{id}});
+      if (command.kind === 'ActivityStarted' && session.status !== 'Completed') throw new ApplicationError('Primero termina la lectura.');
+      if (command.kind === 'ActivityStarted' && !previous) {
+        const deferred = await tx.sessionMetric.findUnique({where:{id:session.id+':ActivityDeferred'}});
+        const immediate = !deferred && session.finishedAt && now.getTime()-session.finishedAt.getTime()<120000;
+        await tx.sessionMetric.upsert({where:{id:session.id+':ActivityContinuation'},create:{id:session.id+':ActivityContinuation',sessionId:session.id,kind:'ActivityContinuation',value:immediate?1:0,recordedAt:now},update:{}});
+      }
       const value = command.kind === 'ActivityTime' ? acceptedDuration(previous?.value ?? 0, command.value ?? 0, session.finishedAt ?? now, now) : 1;
       await tx.sessionMetric.upsert({where:{id},create:{id,sessionId:session.id,kind:command.kind,value,recordedAt:now},update:command.kind === 'ActivityTime' ? {value} : {}}); return;
     }

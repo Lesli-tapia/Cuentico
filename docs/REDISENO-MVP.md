@@ -32,3 +32,6 @@ Se importan íntegros 41 párrafos de los cuatro DOCX de Cuentos, sin reescritur
 
 ## Registro futuro de métricas
 Migración aditiva SessionMetric en SQLite y PostgreSQL: consejo inicial separado de aperturas voluntarias, comienzo y tiempo activo de actividades, y aplazamiento. Sin reconstruir eventos históricos ausentes. Las claves fijas hacen idempotentes los registros iniciales; las aperturas voluntarias usan UUID. Aplicar migraciones antes de utilizar el nuevo servidor.
+
+## Comprobaciones y límites
+Primer recorrido Playwright móvil/escritorio completado; 31 pruebas unitarias y TypeScript superados antes de extender métricas. Validación final se registra al cierre. Las sesiones anteriores conservan seis páginas válidas. No se han aplicado migraciones a producción ni publicado cambios. Audios: se necesitan archivos breves para bosque/viento, arroyo/lluvia, rugido y pasos según los DOCX; el lector funciona sin ellos. Las duraciones históricas se atribuyen al día de cada sesión porque no existen intervalos diarios originales. Explorar permite recuperar actividades pendientes.

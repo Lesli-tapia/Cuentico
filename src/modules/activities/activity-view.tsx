@@ -34,8 +34,8 @@ function ActivityEngine({ story, session }: { story: Story; session: Session }) 
       await command({type:'recordMetric',sessionId:session.id,eventId:'time',kind:'ActivityTime',value:activityClock.current?.seconds()??0});
       const response = await command({ type: 'completeActivity', sessionId: session.id, ...(activity.type === 'SEQUENCE' ? { order } : {}) });
       if (response.result?.correct === false) setFeedback('¡Buen intento! Piensen qué pasó primero y vuelvan a probar.');
-      else if (activity.type === 'SEQUENCE') { setCorrect(true); setFeedback('¡Lo lograron! La aventura está en orden.'); }
-      else router.push(`/cuentos/${story.id}/recompensa?sesion=${session.id}`);
+      else if (activity.type === 'SEQUENCE') { activityClock.current?.setPaused(true); setCorrect(true); setFeedback('¡Lo lograron! La aventura está en orden.'); }
+      else { activityClock.current?.setPaused(true); router.push(`/cuentos/${story.id}/recompensa?sesion=${session.id}`); }
     } catch {} finally { setBusy(false); }
   }
   if (attempt?.status === 'Completed' && !correct) return <Shell back="/" immersive><PageTitle title="¡Ya compartieron este juego!" /><ActionLink href={`/cuentos/${story.id}/recompensa?sesion=${session.id}`}>Ver recompensa</ActionLink></Shell>;
