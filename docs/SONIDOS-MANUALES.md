@@ -1,3 +1,5 @@
+> Selección vigente: ver [SELECCION-SONORA-ELIAN.md](SELECCION-SONORA-ELIAN.md). La configuración de nueve efectos descrita abajo corresponde a una versión anterior.
+
 # Sonidos manuales de Elian
 
 Los nueve efectos de las seis páginas se activan exclusivamente con botones junto a anchor en content/scene-media.json. Cada cue tiene manual:true, label, anchor y un asset existente; se conservan clipStartMs, durationMs y volume. No se crean botones para frases sin configuración. Los otros cuentos mantienen su comportamiento.
