@@ -369,3 +369,10 @@ body { padding-top: calc(var(--header-height) + env(safe-area-inset-top)); }
 @media(prefers-reduced-motion:reduce) { .inline-sound.is-playing svg {animation:none} }
 
 .sound-phrase { white-space:nowrap; }
+
+/* Bienvenida: solo el logo vertical oficial sobre el fondo de marca. */
+.welcome-screen { position:fixed; inset:0; z-index:200; display:grid; place-items:center; overflow:hidden; background:var(--cream); padding:24px; }
+.welcome-logo { width:min(320px,72vw); height:auto; object-fit:contain; animation:welcome-bounce 2.6s both; }
+@keyframes welcome-bounce { 0% {transform:translateY(calc(-50vh - 100%)) scale(.94);opacity:0} 28%{transform:translateY(14px);opacity:1} 39%{transform:translateY(-9px)} 47%,72%{transform:translateY(0);opacity:1} 83%{transform:translateY(12px)} 100%{transform:translateY(calc(-50vh - 100%)) scale(.94);opacity:0} }
+@media(prefers-reduced-motion:reduce) { .welcome-logo { animation:welcome-fade .9s both !important; } }
+@keyframes welcome-fade { 0%,100%{opacity:0} 25%,75%{opacity:1} }
