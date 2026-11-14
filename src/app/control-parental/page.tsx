@@ -1,0 +1,1 @@
+import {RequireProfile,Shell} from '@/components/ui';import ParentalView from '@/modules/profiles/parental-view';export default function Page(){return <RequireProfile><Shell back="/perfil"><ParentalView/></Shell></RequireProfile>;}

@@ -29,7 +29,7 @@ export default function ProfileForm({ initial, mode = 'create', onSaved }: {
   const [error, setError] = useState<string | null>(null);
   const plan = initial?.plan ?? state?.plan;
   const defaults: FormValues = {
-    name: initial?.name ?? '', age: initial?.age === 7 ? 7 : 6,
+    name: initial?.name ?? '', age: initial?.age === 9 ? 9 : initial?.age === 8 ? 8 : initial?.age === 7 ? 7 : 6,
     interests: interests.filter(item => initial?.interests.includes(item.value) ?? item.value === 'aventuras').map(item => item.value),
     plan: {
       minutes: plan?.minutes === 5 || plan?.minutes === 15 || plan?.minutes === 20 ? plan.minutes : 10,
@@ -67,7 +67,7 @@ export default function ProfileForm({ initial, mode = 'create', onSaved }: {
       <h2><Heart size={22} aria-hidden="true" /> Conozcamos a nuestro lector</h2>
       <div className="form-grid">
         <div className="field"><label htmlFor="child-name">Nombre o alias</label><input id="child-name" autoComplete="off" maxLength={30} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'name-error' : 'name-help'} /><small id="name-help">Un apodo también está bien. No necesitamos sus apellidos.</small>{errors.name && <p id="name-error" role="alert">{errors.name.message}</p>}</div>
-        <div className="field"><label htmlFor="child-age">Edad</label><select id="child-age" {...register('age', { valueAsNumber: true })}><option value={6}>6 años</option><option value={7}>7 años</option></select>{errors.age && <p role="alert">Elige 6 o 7 años.</p>}</div>
+        <div className="field"><label htmlFor="child-age">Edad</label><select id="child-age" {...register('age', { valueAsNumber: true })}><option value={6}>6 años</option><option value={7}>7 años</option><option value={8}>8 años</option><option value={9}>9 años</option></select>{errors.age && <p role="alert">Elige una edad de 6 a 9 años.</p>}</div>
       </div>
       <fieldset className="field"><legend>Intereses</legend><div className="check-group">{interests.map(item => <label key={item.value}><input type="checkbox" checked={selectedInterests.includes(item.value)} onChange={event => setValue('interests', event.target.checked ? [...selectedInterests, item.value] : selectedInterests.filter(value => value !== item.value), { shouldValidate: true })} />{item.label}</label>)}</div>{errors.interests && <p role="alert">Elige al menos un interés.</p>}</fieldset>
     </section>

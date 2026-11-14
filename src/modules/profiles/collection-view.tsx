@@ -24,7 +24,6 @@ export default function CollectionView() {
   }
   return <div className="stack">
     <PageTitle title="Mi colección de personajes" subtitle="Un nuevo amigo te espera al completar cada cuento." />
-    <section className="card stack"><span className="eyebrow"><Sparkles size={20} aria-hidden="true" /> {state.unlocks.length} de {stories.length} amigos descubiertos</span><ProgressBar value={state.unlocks.length / stories.length * 100} label="Personajes desbloqueados" /><p>Elige un personaje que ya hayas descubierto para acompañarte como avatar.</p></section>
     {error && <p className="card" role="alert">{error}</p>}{message && <p className="card" role="status">{message}</p>}
     <div className="story-grid">{stories.map(story => {
       const character = story.character;
@@ -32,9 +31,9 @@ export default function CollectionView() {
       const unlock = state.unlocks.find(item => item.characterId === character.id);
       const selected = state.child?.avatarCharacterId === character.id;
       return <article key={character.id} className={`card character-card ${unlock ? 'unlocked' : 'locked'}`}>
-        <div className="character-image"><img src={character.image} alt={unlock ? character.name : `Personaje por descubrir de ${story.title}`} style={{ objectPosition: positions[character.id], ...(!unlock ? { filter: 'brightness(0.2) grayscale(1)', opacity: 0.5 } : {}) }} />{!unlock && <span className="badge"><LockKeyhole size={16} aria-hidden="true" /> Por descubrir</span>}</div>
+        <div className="character-image"><img src={character.image} alt={unlock ? character.name : `Personaje por descubrir de ${story.title}`} style={{ objectPosition: positions[character.id], ...(!unlock ? { filter: 'brightness(0.2) grayscale(1)', opacity: 0.5 } : {}) }} />{!unlock && <span className="badge"><LockKeyhole size={16} aria-hidden="true" /> Por desbloquear</span>}</div>
         <h2>{character.name}</h2><p className="muted">{story.title}</p>
-        {unlock ? <><small>Descubierto el {new Intl.DateTimeFormat('es', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(unlock.unlockedAt))}</small><Button disabled={selected || saving !== null} onClick={() => void select(character.id, character.name)} aria-label={selected ? `${character.name}, avatar actual` : `Usar a ${character.name} como avatar`}>{selected ? <><Check size={20} aria-hidden="true" /> Avatar actual</> : saving === character.id ? 'Guardando…' : 'Usar como avatar'}</Button></> : <><p>Completa su cuento para descubrirlo.</p><Button className="secondary" disabled><LockKeyhole size={18} aria-hidden="true" /> Bloqueado</Button></>}
+        {unlock ? <><small>Descubierto el {new Intl.DateTimeFormat('es', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(unlock.unlockedAt))}</small><Button disabled={selected || saving !== null} onClick={() => void select(character.id, character.name)} aria-label={selected ? `${character.name}, avatar actual` : `Usar a ${character.name} como avatar`}>{selected ? <><Check size={20} aria-hidden="true" /> Avatar actual</> : saving === character.id ? 'Guardando…' : 'Usar como perfil'}</Button></> : <><p>Completa su cuento para descubrirlo.</p><Button className="secondary" disabled><LockKeyhole size={18} aria-hidden="true" /> Bloqueado</Button></>}
       </article>;
     })}</div>
   </div>;

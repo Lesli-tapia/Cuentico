@@ -16,13 +16,14 @@ export const planSchema = z.object({
 }).strict();
 export const profileSchema = z.object({
   name: z.string().trim().min(1, 'Escribe un nombre o alias.').max(30),
-  age: z.union([z.literal(6), z.literal(7)]),
+  age: z.union([z.literal(6), z.literal(7), z.literal(8), z.literal(9)]),
   interests: z.array(z.enum(['aventuras', 'fantasía', 'animales', 'naturaleza'])).min(1).max(4)
     .refine(items => new Set(items).size === items.length),
   plan: planSchema, preferences: preferencesSchema
 }).strict();
 const duration = z.number().finite().min(0).max(86400);
 export const commandSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('recordMetric'), sessionId: identifier, eventId: identifier, kind: z.enum(['InitialTip','VoluntaryTip','ActivityStarted','ActivityTime']), value: duration.optional() }).strict(),
   z.object({ type: z.literal('createProfile'), input: profileSchema }).strict(),
   z.object({ type: z.literal('updateProfile'), input: profileSchema }).strict(),
   z.object({ type: z.literal('switchProfile'), childId: identifier }).strict(),
@@ -30,7 +31,7 @@ export const commandSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('saveReading'), sessionId: identifier, sceneIndex: z.number().int().min(0).max(999), activeDurationSeconds: duration, pause: z.boolean().optional() }).strict(),
   z.object({ type: z.literal('finishReading'), sessionId: identifier, activeDurationSeconds: duration }).strict(),
   z.object({ type: z.literal('deferActivity'), sessionId: identifier }).strict(),
-  z.object({ type: z.literal('completeActivity'), sessionId: identifier, order: z.array(identifier).max(10).optional() }).strict(),
+  z.object({ type: z.literal('completeActivity'), sessionId: identifier, order: z.array(identifier).max(10).optional(), validateOnly: z.boolean().optional() }).strict(),
   z.object({ type: z.literal('toggleFavorite'), storyId: identifier }).strict(),
   z.object({ type: z.literal('selectAvatar'), characterId: identifier }).strict(),
   z.object({ type: z.literal('rateStory'), storyId: identifier, rating: z.enum(['LOVE', 'LIKE', 'NOT_FAVORITE']) }).strict(),

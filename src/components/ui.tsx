@@ -2,25 +2,26 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode, type ButtonHTMLAttributes } from 'react';
-import { ArrowLeft, ArrowRight, BookOpen, Home, Star, UserRound, Lightbulb, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, Home, Heart, Compass, Star, UserRound, Lightbulb, X } from 'lucide-react';
 import { useApp } from './app-provider';
+import { unlockReaderAudio } from '@/modules/reader/scene-events';
 import catalog from '../../content/catalog.json';
-export function Logo() { return <Link href="/" aria-label="Cuentico, inicio" className="logo"><img src="/assets/logo.svg" alt="Cuentico" width="210" height="52" /></Link>; }
+export function Logo({ white = false }: { white?: boolean }) { return <Link href="/" aria-label="Cuentico, inicio" className="logo"><img src={white ? "/assets/logo-white.png" : "/assets/logo-horizontal.png"} alt="Cuentico" width="210" height="52" /></Link>; }
 export function Avatar() {
   const { state } = useApp();
   const character = catalog.stories.find(s => s.character?.id === state?.child?.avatarCharacterId)?.character;
   return <span className="avatar">{character ? <img src={character.image} alt={character.name} /> : <UserRound aria-hidden="true" />}</span>;
 }
-export function Header({ back }: { back?: string }) { return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
+export function Header({ back }: { back?: string }) { const pathname = usePathname(); return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo white /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
 export function BottomNav() {
-  const currentPath = usePathname(); const path = currentPath === '/coleccion' ? '/perfil' : currentPath;
+  const currentPath = usePathname(); const path = ['/coleccion','/configuraciones','/control-parental'].includes(currentPath) ? '/perfil' : currentPath;
   return <nav className="bottom-nav" aria-label="Navegación principal">{[
     { href: '/', label: 'Inicio', Icon: Home }, { href: '/libreria', label: 'Librería', Icon: BookOpen },
-    { href: '/favoritos', label: 'Favoritos', Icon: Star }, { href: '/perfil', label: 'Perfil', Icon: UserRound }
+    { href: '/favoritos', label: 'Favoritos', Icon: Heart }, { href: '/perfil', label: 'Perfil', Icon: UserRound }
   ].map(({ href, label, Icon }) => <Link key={href} href={href} className={path === href ? 'active' : ''} aria-current={path === href ? 'page' : undefined}><Icon aria-hidden="true" /><span>{label}</span></Link>)}</nav>;
 }
 export function Shell({ children, back, immersive = false }: { children: ReactNode; back?: string; immersive?: boolean }) {
-  return <div className={`app-shell ${immersive ? 'immersive' : ''}`}><Header back={back} /><main id="main-content">{children}</main>{!immersive && <BottomNav />}</div>;
+  return <div className={`app-shell ${immersive ? 'immersive' : ''}`}><main id="main-content">{back && <Link href={back} className="icon-button page-back" aria-label="Volver"><ArrowLeft /></Link>}{children}</main>{!immersive && <BottomNav />}</div>;
 }
 export function RequireProfile({ children }: { children: ReactNode }) {
   const { state, loading, error, refresh } = useApp(); const router = useRouter();
@@ -29,7 +30,7 @@ export function RequireProfile({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 export function Button({ children, className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement>) { return <button className={`button ${className}`} {...props}>{children}</button>; }
-export function ActionLink({ href, children, secondary = false }: { href: string; children: ReactNode; secondary?: boolean }) { return <Link className={`button ${secondary ? 'secondary' : ''}`} href={href}>{children}</Link>; }
+export function ActionLink({ href, children, secondary = false }: { href: string; children: ReactNode; secondary?: boolean }) { return <Link onClick={()=>{if(href.includes("/preparacion"))void unlockReaderAudio();}} className={`button ${secondary ? 'secondary' : ''}`} href={href}>{children}</Link>; }
 export function PageTitle({ title, subtitle }: { title: string; subtitle?: string }) { return <div className="page-title"><h1>{title}</h1>{subtitle && <p>{subtitle}</p>}</div>; }
 export function ProgressBar({ value, label }: { value: number; label: string }) { return <div className="progress" role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(value)}><span style={{ width: `${Math.max(0, Math.min(100, value))}%` }} /></div>; }
 export function TipCard({ text, during = false }: { text: string; during?: boolean }) { return <aside className="tip-card"><span className="eyebrow"><Lightbulb size={22} aria-hidden="true" /> Consejo para familias</span><h2>{during ? 'Leamos juntos' : 'Antes de la aventura'}</h2><p>{text}</p></aside>; }

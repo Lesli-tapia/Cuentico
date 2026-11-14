@@ -118,6 +118,7 @@ model ReadingSession {
   furthestSceneIndex    Int              @default(0)
   story                 Story            @relation(fields: [storyId], references: [id])
   child                 ChildProfile     @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  metrics               SessionMetric[]
   attempt               ActivityAttempt?
   reminders             Reminder[]
   @@index([childProfileId, storyId, status])
@@ -230,4 +231,14 @@ model ParentTip {
   text  String
   order Int
   @@unique([stage, order])
+}
+
+model SessionMetric {
+  id String @id
+  sessionId String
+  kind String
+  value Float @default(0)
+  recordedAt DateTime @default(now())
+  session ReadingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  @@index([sessionId, kind])
 }

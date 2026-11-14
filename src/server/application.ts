@@ -82,13 +82,15 @@ export async function getAppState(hash: string | undefined, client?: PrismaClien
   ]);
   const profiles = family.children.map(item => ({ id: item.id, name: item.name, age: item.age,
     interests: JSON.parse(item.interests) as string[], avatarCharacterId: item.avatarCharacterId }));
+  const metrics = await client.sessionMetric.findMany({ where: { session: { childProfileId: child.id } } });
   return {
+    metrics: metrics.map(m => ({...m, recordedAt: m.recordedAt.toISOString()})),
     family: { id: family.id, activeChildId: profileIds.includes(child.id) ? child.id : null }, profiles,
     child: profiles.find(item => item.id === child.id)!, plan, preferences,
     progress: progress.map(item => ({ storyId: item.storyId, status: item.status as Progress['status'], lastSceneIndex: item.lastSceneIndex, rating: item.rating as Progress['rating'] })),
     sessions: sessions.map(item => ({ id: item.id, storyId: item.storyId, childProfileId: item.childProfileId, startedAt: item.startedAt.toISOString(),
       finishedAt: item.finishedAt?.toISOString() ?? null, activeDurationSeconds: item.activeDurationSeconds, status: item.status as Session['status'], lastSceneIndex: item.lastSceneIndex })),
-    attempts: attempts.map(item => ({ id: item.id, sessionId: item.sessionId, activityId: item.activityId, status: item.status as 'Pending' | 'Completed', tries: item.tries })),
+    attempts: attempts.map(item => ({ id: item.id, sessionId: item.sessionId, activityId: item.activityId, status: item.status as 'Pending' | 'Completed', tries: item.tries, completedAt: item.completedAt?.toISOString() ?? null })),
     unlocks: unlocks.map(item => ({ characterId: item.characterId, unlockedAt: item.unlockedAt.toISOString() })),
     favorites: favorites.map(item => item.storyId),
     reminders: reminders.filter(item => {
@@ -108,7 +110,7 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
   state: AppState; result?: { sessionId?: string; correct?: boolean }; newToken?: string;
 }> {
   const parsed = commandSchema.safeParse(raw);
-  if (!parsed.success) throw new ApplicationError('Revisa los datos enviados. El perfil necesita una edad de 6 o 7 años y una rutina válida.');
+  if (!parsed.success) throw new ApplicationError('Revisa los datos enviados. El perfil necesita una edad de 6 a 9 años y una rutina válida.');
   const command: Command = parsed.data;
   client ??= getDatabaseClient();
   let newToken: string | undefined;
@@ -228,6 +230,18 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
 
     const session = await tx.readingSession.findFirst({ where: { id: command.sessionId, childProfileId: child.id }, include: { story: { include: { scenes: true, character: true } }, attempt: { include: { activity: true } } } });
     if (!session) throw new ApplicationError('No encontramos esta sesión de lectura.', 404);
+    if (command.type === 'recordMetric') {
+      const id = session.id + ':' + command.kind + ':' + (command.kind === 'VoluntaryTip' ? command.eventId : 'once');
+      const previous = await tx.sessionMetric.findUnique({where:{id}});
+      if (command.kind === 'ActivityStarted' && session.status !== 'Completed') throw new ApplicationError('Primero termina la lectura.');
+      if (command.kind === 'ActivityStarted' && !previous) {
+        const deferred = await tx.sessionMetric.findUnique({where:{id:session.id+':ActivityDeferred'}});
+        const immediate = !deferred && session.finishedAt && now.getTime()-session.finishedAt.getTime()<120000;
+        await tx.sessionMetric.upsert({where:{id:session.id+':ActivityContinuation'},create:{id:session.id+':ActivityContinuation',sessionId:session.id,kind:'ActivityContinuation',value:immediate?1:0,recordedAt:now},update:{}});
+      }
+      const value = command.kind === 'ActivityTime' ? acceptedDuration(previous?.value ?? 0, command.value ?? 0, session.finishedAt ?? now, now) : 1;
+      await tx.sessionMetric.upsert({where:{id},create:{id,sessionId:session.id,kind:command.kind,value,recordedAt:now},update:command.kind === 'ActivityTime' ? {value} : {}}); return;
+    }
     if (command.type === 'saveReading') {
       if (session.status === 'Completed') return;
       if (command.sceneIndex >= session.story.scenes.length) throw new ApplicationError('Esta escena no existe.');
@@ -252,17 +266,17 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
       return;
     }
     if (session.status !== 'Completed') throw new ApplicationError('Primero terminemos la lectura.');
-    if (command.type === 'deferActivity') { await scheduleActivity(tx, family.id, child.id, session.id, plan, preferences, now); return; }
+    if (command.type === 'deferActivity') { await tx.sessionMetric.upsert({where:{id:session.id+':ActivityDeferred'},create:{id:session.id+':ActivityDeferred',sessionId:session.id,kind:'ActivityDeferred',value:1,recordedAt:now},update:{}}); await scheduleActivity(tx, family.id, child.id, session.id, plan, preferences, now); return; }
     if (command.type === 'completeActivity') {
       if (!session.attempt) throw new ApplicationError('No encontramos la actividad.');
       if (session.attempt.status === 'Completed') { result = { correct: true }; return; }
       const expected = JSON.parse(session.attempt.activity.sceneIds) as string[];
       const correct = session.attempt.activity.type !== 'SEQUENCE' || isCorrectSequence(command.order ?? [], expected);
       await tx.activityAttempt.update({ where: { id: session.attempt.id }, data: {
-        tries: { increment: 1 }, lastOrder: command.order ? JSON.stringify(command.order) : null,
-        ...(correct ? { status: 'Completed', completedAt: now } : {})
+        tries: { increment: correct && session.attempt.lastOrder === JSON.stringify(command.order) && !command.validateOnly ? 0 : 1 }, lastOrder: command.order ? JSON.stringify(command.order) : null,
+        ...(correct && !command.validateOnly ? { status: 'Completed', completedAt: now } : {})
       } });
-      if (correct) await tx.reminder.deleteMany({ where: { sessionId: session.id, type: 'PendingActivity' } });
+      if (correct && !command.validateOnly) await tx.reminder.deleteMany({ where: { sessionId: session.id, type: 'PendingActivity' } });
       result = { correct }; return;
     }
   }, { timeout: 15000 });

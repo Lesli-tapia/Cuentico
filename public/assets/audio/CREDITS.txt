@@ -1,0 +1,14 @@
+Natural recordings used in Cuentico
+
+WOW-kids reactions.wav — tgerginov, CC0 1.0.
+Source: https://freesound.org/people/tgerginov/sounds/528763/
+Downloaded public HQ MP3 preview; playback uses a short excerpt, no pitch transformation.
+License: https://creativecommons.org/publicdomain/zero/1.0/
+
+Four Years Old child laughing / fouryearoldchild_laughing.mp3 — morgantj, CC BY 3.0.
+Source: https://freesound.org/people/morgantj/sounds/60157/
+License verified at https://commons.wikimedia.org/wiki/File:Four_Years_Old_child_laughing.ogg
+License: https://creativecommons.org/licenses/by/3.0/
+Downloaded public HQ MP3 preview; playback uses excerpts with moderate gain.
+
+Other WAV effects are original procedural synthesis; original synthetic voices remain archived but are no longer assigned to Elian laughter/wow cues.

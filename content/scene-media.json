@@ -1,0 +1,261 @@
+{
+  "alas-1": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/child-laugh-natural.mp3",
+        "anchor": "otros niños volar",
+        "wordOffset": 25,
+        "delayMs": 10000,
+        "durationMs": 1800,
+        "clipStartMs": 500,
+        "manual": true,
+        "label": "Risas de niños",
+        "volume": 0.8
+      }
+    ]
+  },
+  "alas-3": {
+    "sounds": [
+      {
+        "asset": null,
+        "manual": true,
+        "enabled": false,
+        "label": "Caída suave",
+        "anchor": "cayó",
+        "requiredFile": "elian-caida-hierba.wav",
+        "description": "Una sola caída corporal ligera sobre hierba o suelo blando; sin pasos previos, voces, golpe duro ni efecto electrónico; 0.5–1 segundo.",
+        "durationMs": 800,
+        "clipStartMs": 0,
+        "volume": 0.8
+      }
+    ]
+  },
+  "alas-5": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/sparkle.wav",
+        "wordOffset": 21,
+        "delayMs": 9000,
+        "durationMs": 1800,
+        "anchor": "brillaban",
+        "manual": true,
+        "label": "Destellos mágicos",
+        "volume": 0.55
+      }
+    ],
+    "video": "/assets/stories/alas/5.mp4"
+  },
+  "nilo-1": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/birds.wav",
+        "wordOffset": 2,
+        "delayMs": 857,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "nilo-2": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/steps.wav",
+        "wordOffset": 8,
+        "delayMs": 3429,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "nilo-4": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/water.wav",
+        "wordOffset": 14,
+        "delayMs": 6000,
+        "durationMs": 3000
+      },
+      {
+        "asset": "/assets/audio/rain.wav",
+        "wordOffset": 36,
+        "delayMs": 15429,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "kiro-1": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/birds.wav",
+        "wordOffset": 2,
+        "delayMs": 857,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "kiro-4": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/roar.wav",
+        "wordOffset": 17,
+        "delayMs": 7286,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "kiro-5": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/water.wav",
+        "wordOffset": 32,
+        "delayMs": 13714,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "tortas-4": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/steps.wav",
+        "wordOffset": 30,
+        "delayMs": 12857,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "tortas-5": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/steps.wav",
+        "wordOffset": 5,
+        "delayMs": 2143,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "tortas-6": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/kitchen.wav",
+        "wordOffset": 26,
+        "delayMs": 11143,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "alas-2": {
+    "sounds": [
+      {
+        "asset": null,
+        "manual": true,
+        "enabled": false,
+        "label": "Suspiro de tristeza",
+        "anchor": "tristeza",
+        "requiredFile": "elian-suspiro-natural.wav",
+        "description": "Suspiro humano suave de tristeza, sin palabras ni música; 0.8–1.5 segundos.",
+        "durationMs": 1200,
+        "clipStartMs": 0,
+        "volume": 0.8
+      }
+    ]
+  },
+  "alas-4": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/child-reactions-natural.mp3",
+        "anchor": "admiración",
+        "wordOffset": 21,
+        "delayMs": 9000,
+        "durationMs": 1800,
+        "clipStartMs": 0,
+        "manual": true,
+        "label": "¡Wooow!",
+        "volume": 0.8
+      }
+    ]
+  },
+  "alas-6": {
+    "sounds": [
+      {
+        "asset": null,
+        "manual": true,
+        "enabled": false,
+        "label": "Niños corriendo sobre hierba",
+        "anchor": "jugaba feliz",
+        "requiredFile": "elian-carrera-hierba.wav",
+        "description": "Carrera ligera de niños sobre hierba: pisadas rápidas e irregulares, roce de césped; sin risas ni música; 1–2 segundos.",
+        "durationMs": 1800,
+        "clipStartMs": 0,
+        "volume": 0.8
+      }
+    ]
+  },
+  "nilo-3": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/wind.wav",
+        "wordOffset": 4,
+        "delayMs": 1600,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "nilo-5": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/wind.wav",
+        "wordOffset": 4,
+        "delayMs": 1600,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "kiro-2": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/wind.wav",
+        "wordOffset": 4,
+        "delayMs": 1600,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "kiro-3": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/wind.wav",
+        "wordOffset": 4,
+        "delayMs": 1600,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "kiro-6": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/wind.wav",
+        "wordOffset": 4,
+        "delayMs": 1600,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "tortas-2": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/steps.wav",
+        "wordOffset": 4,
+        "delayMs": 1600,
+        "durationMs": 3000
+      }
+    ]
+  },
+  "tortas-3": {
+    "sounds": [
+      {
+        "asset": "/assets/audio/steps.wav",
+        "wordOffset": 4,
+        "delayMs": 1600,
+        "durationMs": 3000
+      }
+    ]
+  }
+}

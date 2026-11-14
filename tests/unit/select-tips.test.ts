@@ -1,0 +1,2 @@
+import {expect,it} from 'vitest';import {selectTips} from '../../src/modules/reader/select-tips';
+it('selecciona dos distintos sin modificar ni repetir el contenido original',()=>{const source=['A','A','B','C'];expect(selectTips(source,()=>0)).toEqual(['B','C']);expect(selectTips(source,()=>.99)).toEqual(['A','B']);expect(source).toEqual(['A','A','B','C']);expect(selectTips(['A','A'])).toEqual(['A']);expect(selectTips([])).toEqual([]);});

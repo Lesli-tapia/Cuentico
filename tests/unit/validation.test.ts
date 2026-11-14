@@ -5,7 +5,7 @@ import { profileInput } from '../fixtures/profile';
 describe('validación de entradas familiares', () => {
   it('acepta los datos mínimos del MVP y rechaza edades fuera del rango', () => {
     expect(commandSchema.safeParse({ type: 'createProfile', input: profileInput }).success).toBe(true);
-    expect(commandSchema.safeParse({ type: 'createProfile', input: { ...profileInput, age: 8 } }).success).toBe(false);
+    expect(commandSchema.safeParse({ type: 'createProfile', input: { ...profileInput, age: 10 } }).success).toBe(false);
     expect(commandSchema.safeParse({ type: 'createProfile', input: { ...profileInput, name: '  ' } }).success).toBe(false);
   });
   it('rechaza horas, zonas y días que no se pueden programar', () => {

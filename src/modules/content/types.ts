@@ -13,13 +13,21 @@ export interface SceneEvent {
   delayMs: number;
   asset: string | null;
   durationMs: number;
+  wordOffset?: number;
+  anchor?: string;
+  startFraction?: number;
+  clipStartMs?: number;
+  volume?: number;
   enabled: boolean;
+  manual?: boolean;
+  label?: string;
 }
 
 export interface StoryScene {
   id: string;
   index: number;
   image: string;
+  video?: string;
   paragraphs: string[];
   events: SceneEvent[];
 }

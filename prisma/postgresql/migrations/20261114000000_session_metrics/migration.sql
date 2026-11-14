@@ -1,0 +1,2 @@
+CREATE TABLE "SessionMetric" ("id" TEXT NOT NULL PRIMARY KEY, "sessionId" TEXT NOT NULL, "kind" TEXT NOT NULL, "value" DOUBLE PRECISION NOT NULL DEFAULT 0, "recordedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "SessionMetric_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "ReadingSession"("id") ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE INDEX "SessionMetric_sessionId_kind_idx" ON "SessionMetric"("sessionId", "kind");

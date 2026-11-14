@@ -23,16 +23,17 @@ function Read-DocxParagraphs([string]$Path) {
 }
 
 $taskDefinitions = @(
-    @{ id='alas'; folder='1 Las alas que brillaban con el sol'; doc='CUENTO 1.docx'; ends=@(2,5,6,12,14,19); theme='Fantasía y autoestima'; character='Elian'; portrait=5; duration=8; activity='FAVORITE_MOMENT'; activityTitle='Nuestro momento favorito'; activityScenes=@(1,3,5,6) },
-    @{ id='nilo'; folder='2 Milo el gato explorador'; doc='CUENTO 2.docx'; ends=@(2,5,9,14,17,22); theme='Animales y amistad'; character='Nilo'; portrait=1; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) },
-    @{ id='kiro'; folder='3 Kiro y el corazón de la sabana'; doc='CUENTO 3.docx'; ends=@(3,8,13,16,19,24); theme='Naturaleza y trabajo en equipo'; character='Kiro'; portrait=1; duration=8; activity='GUESS_CHARACTER'; activityTitle='Adivina el personaje'; activityScenes=@(1,2,5,6) },
-    @{ id='tortas'; folder='4 El misterio de las tortas desaparecidas'; doc='CUENTO 4.docx'; ends=@(2,4,8,13,23,27); theme='Aventuras y generosidad'; character='Martina'; portrait=2; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) }
+    @{ id='alas'; folder='1 Las alas que brillaban con el sol'; doc='CUENTO 1.docx'; ends=@(1,2,3,7,8,10); theme='Fantasía y autoestima'; character='Elian'; portrait=5; duration=8; activity='FAVORITE_MOMENT'; activityTitle='Nuestro momento favorito'; activityScenes=@(1,3,5,6) },
+    @{ id='nilo'; folder='2 Milo el gato explorador'; doc='CUENTO 2.docx'; ends=@(1,2,3,4,5,7); theme='Animales y amistad'; character='Nilo'; portrait=1; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) },
+    @{ id='kiro'; folder='3 Kiro y el corazón de la sabana'; doc='CUENTO 3.docx'; ends=@(1,4,6,8,10,14); theme='Naturaleza y trabajo en equipo'; character='Kiro'; portrait=1; duration=8; activity='GUESS_CHARACTER'; activityTitle='Adivina el personaje'; activityScenes=@(1,2,5,6) },
+    @{ id='tortas'; folder='4 El misterio de las tortas desaparecidas'; doc='CUENTO 4.docx'; ends=@(1,2,4,6,8,10); theme='Aventuras y generosidad'; character='Martina'; portrait=2; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) }
 )
 
+$taskMediaConfig = Get-Content -LiteralPath (Join-Path $taskRoot 'content\scene-media.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $taskStories = @()
 for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
     $taskDefinition = $taskDefinitions[$taskOrder]
-    $taskFolder = Join-Path $taskRoot ('Referencias\Cuentos\' + $taskDefinition.folder)
+    $taskFolder = Join-Path $taskRoot ('Cambios\Cuentos\' + $taskDefinition.folder)
     $taskParagraphs = @(Read-DocxParagraphs (Join-Path $taskFolder $taskDefinition.doc))
     $taskScenes = @()
     $taskStart = 1
@@ -58,6 +59,12 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
             paragraphs=@($taskParagraphs[$taskStart..$taskEnd])
             events=@([ordered]@{sceneId=$taskSceneId; eventType='IMAGE_ANIMATION'; trigger='ON_SCENE_ENTER'; delayMs=0; asset=$null; durationMs=700; enabled=$true})
         }
+        $taskMedia = $taskMediaConfig.$taskSceneId
+        if ($taskMedia.video) { $taskScenes[-1]['video'] = $taskMedia.video }
+        if ($taskDefinition.id -eq 'alas' -and @($taskMedia.sounds).Count -gt 1) { throw ('Elian admite un solo efecto por pagina: ' + $taskSceneId) }
+        foreach ($taskSound in $taskMedia.sounds) {
+            $taskScenes[-1].events += [ordered]@{sceneId=$taskSceneId;eventType='SOUND_EFFECT';trigger='AFTER_DELAY';delayMs=$taskSound.delayMs;asset=$taskSound.asset;durationMs=$taskSound.durationMs;enabled=($taskSound.enabled -ne $false);manual=($taskSound.manual -eq $true);label=$taskSound.label;wordOffset=$taskSound.wordOffset;anchor=$taskSound.anchor;clipStartMs=$taskSound.clipStartMs;volume=$(if ($null -ne $taskSound.volume) {$taskSound.volume} else {1})}
+        }
         $taskStart = $taskEnd+1
     }
     $taskReassembled = @($taskScenes | ForEach-Object { $_.paragraphs })
@@ -68,7 +75,7 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
     }
     $taskStories += [ordered]@{
         id=$taskDefinition.id; title=$taskParagraphs[0]; description=$taskParagraphs[1]; order=($taskOrder+1)
-        ageMin=6; ageMax=7; durationMinutes=$taskDefinition.duration; theme=$taskDefinition.theme
+        ageMin=6; ageMax=9; durationMinutes=$taskDefinition.duration; theme=$taskDefinition.theme
         cover=('/assets/stories/' + $taskDefinition.id + '/1.png'); available=$true; scenes=$taskScenes
         character=[ordered]@{id=($taskDefinition.id + '-character'); name=$taskDefinition.character; image=('/assets/stories/' + $taskDefinition.id + '/' + $taskDefinition.portrait + '.png')}
         activity=[ordered]@{id=($taskDefinition.id + '-activity'); type=$taskDefinition.activity; title=$taskDefinition.activityTitle; sceneIds=@($taskDefinition.activityScenes | ForEach-Object {$taskDefinition.id + '-' + $_})}
@@ -94,7 +101,7 @@ if (-not $Verify) {
     [IO.File]::WriteAllText((Join-Path $taskRoot 'content\tips.json'), ($taskTips | ConvertTo-Json -Depth 5), $taskUtf8)
     $taskAssets = Join-Path $taskRoot 'public\assets'
     New-Item -ItemType Directory -Path (Join-Path $taskAssets 'fonts') -Force | Out-Null
-    Copy-Item -LiteralPath (Join-Path $taskRoot 'Branding\logo.svg') -Destination (Join-Path $taskAssets 'logo.svg') -Force
+    # Logos are prepared separately; do not overwrite trimmed application copies.
     foreach ($taskFont in @('Poppins-Regular.ttf','Poppins-Medium.ttf','Poppins-SemiBold.ttf','Poppins-Bold.ttf','OFL.txt')) {
         Copy-Item -LiteralPath (Join-Path $taskRoot ('Branding\poppins\' + $taskFont)) -Destination (Join-Path $taskAssets ('fonts\' + $taskFont)) -Force
     }
@@ -118,4 +125,4 @@ if (-not $Verify) {
         }
     }
 }
-Write-Output 'Content verified: 92 original story paragraphs, 31 parent tips, 24 original images. Fifth slot unavailable.'
+Write-Output 'Content verified: 41 updated story paragraphs, 31 parent tips, 24 original images. Fifth slot unavailable.'
