@@ -42,7 +42,16 @@
                                                               "sceneId":  "alas-1",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  857,
+                                                              "delayMs":  900,
+                                                              "asset":  "/assets/audio/children-laugh.wav",
+                                                              "durationMs":  3000,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "alas-1",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  7000,
                                                               "asset":  "/assets/audio/birds.wav",
                                                               "durationMs":  3000,
                                                               "enabled":  true
@@ -64,6 +73,15 @@
                                                               "delayMs":  0,
                                                               "asset":  null,
                                                               "durationMs":  700,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "alas-2",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1700,
+                                                              "asset":  "/assets/audio/sad-sigh.wav",
+                                                              "durationMs":  3000,
                                                               "enabled":  true
                                                           }
                                                       ]
@@ -89,9 +107,27 @@
                                                               "sceneId":  "alas-3",
                                                               "eventType":  "SOUND_EFFECT",
                                                               "trigger":  "AFTER_DELAY",
-                                                              "delayMs":  13714,
+                                                              "delayMs":  6000,
                                                               "asset":  "/assets/audio/steps.wav",
-                                                              "durationMs":  3000,
+                                                              "durationMs":  1800,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "alas-3",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  11300,
+                                                              "asset":  "/assets/audio/stumble.wav",
+                                                              "durationMs":  650,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "alas-3",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  12200,
+                                                              "asset":  "/assets/audio/fall.wav",
+                                                              "durationMs":  900,
                                                               "enabled":  true
                                                           }
                                                       ]
@@ -114,6 +150,15 @@
                                                               "delayMs":  0,
                                                               "asset":  null,
                                                               "durationMs":  700,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "alas-4",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  2800,
+                                                              "asset":  "/assets/audio/child-wow.wav",
+                                                              "durationMs":  1500,
                                                               "enabled":  true
                                                           }
                                                       ]
@@ -163,6 +208,24 @@
                                                               "delayMs":  0,
                                                               "asset":  null,
                                                               "durationMs":  700,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "alas-6",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1800,
+                                                              "asset":  "/assets/audio/children-laugh.wav",
+                                                              "durationMs":  3000,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "alas-6",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  6200,
+                                                              "asset":  "/assets/audio/steps.wav",
+                                                              "durationMs":  1800,
                                                               "enabled":  true
                                                           }
                                                       ]
@@ -269,6 +332,15 @@
                                                               "asset":  null,
                                                               "durationMs":  700,
                                                               "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "nilo-3",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1600,
+                                                              "asset":  "/assets/audio/wind.wav",
+                                                              "durationMs":  3000,
+                                                              "enabled":  true
                                                           }
                                                       ]
                                        },
@@ -324,6 +396,15 @@
                                                               "delayMs":  0,
                                                               "asset":  null,
                                                               "durationMs":  700,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "nilo-5",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1600,
+                                                              "asset":  "/assets/audio/wind.wav",
+                                                              "durationMs":  3000,
                                                               "enabled":  true
                                                           }
                                                       ]
@@ -424,6 +505,15 @@
                                                               "asset":  null,
                                                               "durationMs":  700,
                                                               "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "kiro-2",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1600,
+                                                              "asset":  "/assets/audio/wind.wav",
+                                                              "durationMs":  3000,
+                                                              "enabled":  true
                                                           }
                                                       ]
                                        },
@@ -443,6 +533,15 @@
                                                               "delayMs":  0,
                                                               "asset":  null,
                                                               "durationMs":  700,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "kiro-3",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1600,
+                                                              "asset":  "/assets/audio/wind.wav",
+                                                              "durationMs":  3000,
                                                               "enabled":  true
                                                           }
                                                       ]
@@ -524,6 +623,15 @@
                                                               "asset":  null,
                                                               "durationMs":  700,
                                                               "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "kiro-6",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1600,
+                                                              "asset":  "/assets/audio/wind.wav",
+                                                              "durationMs":  3000,
+                                                              "enabled":  true
                                                           }
                                                       ]
                                        }
@@ -592,6 +700,15 @@
                                                               "asset":  null,
                                                               "durationMs":  700,
                                                               "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "tortas-2",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1600,
+                                                              "asset":  "/assets/audio/steps.wav",
+                                                              "durationMs":  3000,
+                                                              "enabled":  true
                                                           }
                                                       ]
                                        },
@@ -611,6 +728,15 @@
                                                               "delayMs":  0,
                                                               "asset":  null,
                                                               "durationMs":  700,
+                                                              "enabled":  true
+                                                          },
+                                                          {
+                                                              "sceneId":  "tortas-3",
+                                                              "eventType":  "SOUND_EFFECT",
+                                                              "trigger":  "AFTER_DELAY",
+                                                              "delayMs":  1600,
+                                                              "asset":  "/assets/audio/steps.wav",
+                                                              "durationMs":  3000,
                                                               "enabled":  true
                                                           }
                                                       ]

@@ -9,4 +9,12 @@ create('rain',2.8,t=>noise()*.19*(.8+.2*sine(13,t)));
 create('roar',1.5,t=>{const env=Math.sin(Math.PI*t/1.5);return (sine(75+25*env,t)*.3+noise()*.23)*(1+.3*sine(28,t))*env});
 create('sparkle',2,t=>{const notes=[784,988,1175,1568,1976],i=Math.min(4,Math.floor(t/.4)),x=t%.4;return sine(notes[i],t)*Math.exp(-x*10)*.38});
 create('kitchen',1.5,t=>{const x=t%.32;return x<.08?(sine(520,t)*.25+noise()*.25)*Math.exp(-x*65):0});
-console.log('Generated 7 original PCM sound effects.');
+// Stylized synthetic vocal effects, not recordings of actual children.
+function vowel(t,pitch,f1,f2){let value=0;for(let h=1;h<=18;h++){const hz=pitch*h;const weight=Math.exp(-Math.pow((hz-f1)/230,2))+.55*Math.exp(-Math.pow((hz-f2)/330,2));value+=sine(hz,t)*weight/h;}return value;}
+create('children-laugh',2.6,t=>{const phase=t%.38;const env=phase<.23?Math.sin(Math.PI*phase/.23):0;return vowel(t,310+20*sine(4,t),850,1450)*env*.8;});
+create('sad-sigh',1.6,t=>{const env=Math.sin(Math.PI*t/1.6);return (noise()*.16+vowel(t,240-55*t,600,1150)*.35)*env;});
+create('child-wow',1.5,t=>{const open=Math.sin(Math.PI*t/1.5);return vowel(t,300+35*open,320+500*open,850+500*open)*Math.sin(Math.PI*t/1.5)*.9;});
+create('stumble',.65,t=>{const x=t%.17;return (noise()*.4+sine(125,t)*.2)*Math.exp(-x*35)*(1-t/.65)});
+create('fall',.9,t=>(noise()*.35+sine(65,t)*.35)*Math.exp(-t*8));
+create('wind',2.4,t=>noise()*.12*Math.sin(Math.PI*t/2.4));
+console.log('Generated 13 original stylized sound effects.');
