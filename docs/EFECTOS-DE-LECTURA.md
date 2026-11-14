@@ -21,3 +21,7 @@ Risa: morgantj, CC BY 3.0, grabación de un niño de cuatro años (no una multit
 
 ## Navegador
 El audio se habilita con la interacción de inicio de lectura. Abrir directamente el lector puede requerir una interacción; no se fuerzan restricciones de autoplay del navegador.
+
+## Validacion del 14 de noviembre de 2026
+TypeScript aprobado; 44 pruebas unitarias aprobadas y 17 pruebas Playwright sobre compilacion de produccion aprobadas. Casos de precarga, ritmo 60/120, orden con pausas, una reproduccion por entrada, reentrada, cancelacion, silencio, reactivacion sin efectos vencidos, volumen independiente, decodificacion tardia y archivo ausente. El catalogo local se actualizo con upsert sin reiniciar progreso. No se modificaron rutas, estilos ni esquemas de base de datos en esta tarea.
+Limitacion del recurso: la grabacion de asombro disponible es de una niña y la de risas es de un niño; no se presentan como un coro de varios niños. Los fragmentos pueden reemplazarse en la configuracion sin cambiar el motor.
