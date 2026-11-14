@@ -88,7 +88,7 @@ export async function getAppState(hash: string | undefined, client?: PrismaClien
     progress: progress.map(item => ({ storyId: item.storyId, status: item.status as Progress['status'], lastSceneIndex: item.lastSceneIndex, rating: item.rating as Progress['rating'] })),
     sessions: sessions.map(item => ({ id: item.id, storyId: item.storyId, childProfileId: item.childProfileId, startedAt: item.startedAt.toISOString(),
       finishedAt: item.finishedAt?.toISOString() ?? null, activeDurationSeconds: item.activeDurationSeconds, status: item.status as Session['status'], lastSceneIndex: item.lastSceneIndex })),
-    attempts: attempts.map(item => ({ id: item.id, sessionId: item.sessionId, activityId: item.activityId, status: item.status as 'Pending' | 'Completed', tries: item.tries })),
+    attempts: attempts.map(item => ({ id: item.id, sessionId: item.sessionId, activityId: item.activityId, status: item.status as 'Pending' | 'Completed', tries: item.tries, completedAt: item.completedAt?.toISOString() ?? null })),
     unlocks: unlocks.map(item => ({ characterId: item.characterId, unlockedAt: item.unlockedAt.toISOString() })),
     favorites: favorites.map(item => item.storyId),
     reminders: reminders.filter(item => {

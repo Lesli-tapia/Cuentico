@@ -17,7 +17,7 @@ export interface Progress {
   rating: 'LOVE' | 'LIKE' | 'NOT_FAVORITE' | null;
 }
 export interface Attempt {
-  id: string; sessionId: string; activityId: string; status: 'Pending' | 'Completed'; tries: number;
+  id: string; sessionId: string; activityId: string; status: 'Pending' | 'Completed'; tries: number; completedAt?: string | null;
 }
 export interface AppState {
   family: { id: string; activeChildId: string | null } | null;

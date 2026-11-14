@@ -1,0 +1,1 @@
+import {expect,it} from 'vitest';import {readingRank} from '../../src/modules/profiles/ranks';it('cuenta cuentos distintos sin duplicar relecturas',()=>{expect(readingRank([])).toBe('Explorador de historias');expect(readingRank(['alas','alas'])).toBe('Lector novato');expect(readingRank(['a','b','c','d','e'])).toBe('Devorador de cuentos')});
