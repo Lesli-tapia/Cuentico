@@ -13,10 +13,10 @@ export function Avatar() {
 }
 export function Header({ back }: { back?: string }) { const pathname = usePathname(); return <header className="app-header">{back && <Link href={back} className="icon-button" aria-label="Volver"><ArrowLeft /></Link>}<Logo white={pathname === "/libreria"} /><Link href="/perfil" aria-label="Ir al perfil"><Avatar /></Link></header>; }
 export function BottomNav() {
-  const currentPath = usePathname(); const path = currentPath === '/coleccion' ? '/perfil' : currentPath;
+  const currentPath = usePathname(); const path = ['/coleccion','/configuraciones','/control-parental'].includes(currentPath) ? '/perfil' : currentPath;
   return <nav className="bottom-nav" aria-label="Navegación principal">{[
     { href: '/', label: 'Inicio', Icon: Home }, { href: '/libreria', label: 'Librería', Icon: BookOpen },
-    { href: '/favoritos', label: 'Favoritos', Icon: Heart }, { href: '/explorar', label: 'Explorar', Icon: Compass }
+    { href: '/favoritos', label: 'Favoritos', Icon: Heart }, { href: '/perfil', label: 'Perfil', Icon: UserRound }
   ].map(({ href, label, Icon }) => <Link key={href} href={href} className={path === href ? 'active' : ''} aria-current={path === href ? 'page' : undefined}><Icon aria-hidden="true" /><span>{label}</span></Link>)}</nav>;
 }
 export function Shell({ children, back, immersive = false }: { children: ReactNode; back?: string; immersive?: boolean }) {
