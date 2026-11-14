@@ -326,3 +326,5 @@ input[type='checkbox'] { width: 20px; height: 20px; accent-color: #29877f; flex-
 .activity-steps{display:grid;gap:12px;padding-left:28px}.activity-steps li::marker{font-weight:700;color:var(--ink)}.activity-steps h2{font-size:1.1rem}.activity-steps p{margin-top:6px}
 
 @media(max-width:600px){.recommended{display:flex;flex-direction:column-reverse;align-items:stretch}.recommended img{height:auto;max-height:300px;width:100%;object-fit:contain}.recommended-copy{align-items:stretch}.recommended-copy .badge{align-self:flex-start}.recommended h1{font-size:1.8rem}.app-header .logo img{width:180px;height:52px}}
+
+@media(max-width:600px){.recommended img{max-height:200px}}
