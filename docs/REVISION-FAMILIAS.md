@@ -15,3 +15,7 @@ Efectos originales sintetizados en WAV mediante scripts/generate-story-sounds.cj
 
 ## Interfaz
 Borde beige fino en botón de Inicio; etiqueta celeste; Perfil vuelve a navegación. Letra de 14 a 40 px en pasos de 1 px, predeterminada 20. Control parental y configuraciones se abren directamente sin reto adulto.
+
+## Validacion final — 14 de noviembre de 2026
+TypeScript aprobado; 35 pruebas unitarias y 16 pruebas Playwright aprobadas. La prueba nueva abre directamente metricas y configuracion, verifica 20/21/20 px, comprueba que el video de la escena cinco decodifica y que se solicita audio WAV despues de iniciar la lectura con interaccion real. El importador -Verify compara los 41 parrafos, 31 consejos y 24 ilustraciones originales. Compilacion de produccion aprobada. Catalogo SQLite local actualizado mediante upsert, sin reiniciar datos. No se modificaron esquemas de base de datos en esta revision.
+La subida de la rama actualiza la solicitud existente. La publicacion de la vista previa depende de que Netlify termine su despliegue. No se fusiona con main ni se publica en produccion.
