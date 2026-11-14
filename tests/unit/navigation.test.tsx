@@ -14,7 +14,7 @@ describe('navegación y área adulta', () => {
     expect(within(nav).getAllByRole('link')).toHaveLength(4);
     expect(within(nav).getByRole('link', { name: 'Librería' })).toHaveAttribute('aria-current', 'page');
     expect(within(nav).getByRole('link', { name: 'Inicio' })).not.toHaveAttribute('aria-current');
-    expect(within(nav).getByRole('link', { name: 'Perfil' })).toHaveAttribute('href', '/perfil');
+    expect(within(nav).getByRole('link', { name: 'Explorar' })).toHaveAttribute('href', '/explorar');
   });
   it('mantiene los ajustes ocultos con una respuesta incorrecta y permite el acceso al resolver', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);

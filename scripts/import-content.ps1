@@ -41,6 +41,7 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
         $taskSceneId = $taskDefinition.id + '-' + $taskSceneNumber
         $taskImagePath = '/assets/stories/' + $taskDefinition.id + '/' + $taskSceneNumber + '.png'
         $taskOriginalImage = Join-Path $taskFolder ($taskSceneNumber.ToString() + '.png')
+        if ($taskDefinition.id -eq 'alas' -and $taskSceneNumber -eq 5) { $taskOriginalImage = Join-Path $taskRoot 'Cambios\05_Las alas que brillaban con el sol.png' }
         if ($taskDefinition.id -eq 'nilo' -and $taskSceneNumber -ge 5) {
             $taskCandidates = @(Get-ChildItem -LiteralPath $taskFolder -Filter ('*-' + $taskSceneNumber + '.png'))
             if ($taskCandidates.Count -ne 1) { throw "Expected exactly one Nilo image $taskSceneNumber" }
@@ -68,7 +69,7 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
     }
     $taskStories += [ordered]@{
         id=$taskDefinition.id; title=$taskParagraphs[0]; description=$taskParagraphs[1]; order=($taskOrder+1)
-        ageMin=6; ageMax=7; durationMinutes=$taskDefinition.duration; theme=$taskDefinition.theme
+        ageMin=6; ageMax=9; durationMinutes=$taskDefinition.duration; theme=$taskDefinition.theme
         cover=('/assets/stories/' + $taskDefinition.id + '/1.png'); available=$true; scenes=$taskScenes
         character=[ordered]@{id=($taskDefinition.id + '-character'); name=$taskDefinition.character; image=('/assets/stories/' + $taskDefinition.id + '/' + $taskDefinition.portrait + '.png')}
         activity=[ordered]@{id=($taskDefinition.id + '-activity'); type=$taskDefinition.activity; title=$taskDefinition.activityTitle; sceneIds=@($taskDefinition.activityScenes | ForEach-Object {$taskDefinition.id + '-' + $_})}
