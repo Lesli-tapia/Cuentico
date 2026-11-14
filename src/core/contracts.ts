@@ -38,7 +38,7 @@ export type Command =
   | { type: 'saveReading'; sessionId: string; sceneIndex: number; activeDurationSeconds: number; pause?: boolean }
   | { type: 'finishReading'; sessionId: string; activeDurationSeconds: number }
   | { type: 'deferActivity'; sessionId: string }
-  | { type: 'completeActivity'; sessionId: string; order?: string[] }
+  | { type: 'completeActivity'; sessionId: string; order?: string[]; validateOnly?: boolean }
   | { type: 'toggleFavorite'; storyId: string }
   | { type: 'selectAvatar'; characterId: string }
   | { type: 'rateStory'; storyId: string; rating: 'LOVE' | 'LIKE' | 'NOT_FAVORITE' }

@@ -28,13 +28,13 @@ function ActivityEngine({ story, session }: { story: Story; session: Session }) 
     if (to < 0 || to >= order.length || busy || correct) return;
     setOrder(current => { const copy = [...current]; const [item] = copy.splice(from, 1); copy.splice(to, 0, item); return copy; }); setFeedback('');
   }
-  async function complete() {
+  async function complete(validateOnly = false) {
     setBusy(true); setFeedback('');
     try {
       await command({type:'recordMetric',sessionId:session.id,eventId:'time',kind:'ActivityTime',value:activityClock.current?.seconds()??0});
-      const response = await command({ type: 'completeActivity', sessionId: session.id, ...(activity.type === 'SEQUENCE' ? { order } : {}) });
+      const response = await command({ type: 'completeActivity', sessionId: session.id, validateOnly, ...(activity.type === 'SEQUENCE' ? { order } : {}) });
       if (response.result?.correct === false) setFeedback('¡Buen intento! Piensen qué pasó primero y vuelvan a probar.');
-      else if (activity.type === 'SEQUENCE') { activityClock.current?.setPaused(true); setCorrect(true); setFeedback('¡Lo lograron! La aventura está en orden.'); }
+      else if (activity.type === 'SEQUENCE' && validateOnly) { setCorrect(true); setFeedback('¡Lo lograron! La aventura está en orden.'); }
       else { activityClock.current?.setPaused(true); router.push(`/cuentos/${story.id}/recompensa?sesion=${session.id}`); }
     } catch {} finally { setBusy(false); }
   }
@@ -44,7 +44,7 @@ function ActivityEngine({ story, session }: { story: Story; session: Session }) 
     {activity.type === 'SEQUENCE' ? <><div className="activity-instruction"><GripVertical size={32} /><p><strong>Mueve las imágenes</strong> en el orden de la historia. También puedes usar las flechas.</p></div><div className="sequence-grid">{order.map((sceneId, index) => {
       const scene = story.scenes.find(s => s.id === sceneId)!;
       return <article key={sceneId} className={`sequence-card ${correct ? 'correct' : ''}`} draggable={!correct && !busy} onDragStart={e => { setDragged(index); e.dataTransfer.setData('text/plain', String(index)); e.dataTransfer.effectAllowed = 'move'; }} onDragOver={e => e.preventDefault()} onDragEnd={() => setDragged(null)} onDrop={e => { e.preventDefault(); if (dragged !== null) move(dragged, index); setDragged(null); }}><span className="sequence-number" aria-label={`Posición ${index + 1}`}>{index + 1}</span><img draggable={false} src={scene.image} alt={`Escena ilustrada: ${scene.paragraphs[0]}`} /><div className="sequence-move"><button className="icon-button" aria-label={`Mover tarjeta ${index + 1} antes`} disabled={index === 0 || busy || correct} onClick={() => move(index, index - 1)}><ArrowUp size={20} /></button><GripVertical aria-hidden="true" /><button className="icon-button" aria-label={`Mover tarjeta ${index + 1} después`} disabled={index === order.length - 1 || busy || correct} onClick={() => move(index, index + 1)}><ArrowDown size={20} /></button></div></article>;
-    })}</div>{feedback && <p role="status" className={`activity-feedback ${correct ? 'success' : ''}`}>{feedback}</p>}{correct ? <ActionLink href={`/cuentos/${story.id}/recompensa?sesion=${session.id}`}><Sparkles /> Ya terminamos la actividad</ActionLink> : <Button disabled={busy} onClick={() => void complete()}><Check />{busy ? 'Comprobando…' : 'Comprobar orden'}</Button>}</> : <>
+    })}</div>{feedback && <p role="status" className={`activity-feedback ${correct ? 'success' : ''}`}>{feedback}</p>}{correct ? <Button disabled={busy} onClick={()=>void complete()}><Sparkles /> Ya terminamos la actividad</Button> : <Button disabled={busy} onClick={() => void complete(true)}><Check />{busy ? 'Comprobando…' : 'Comprobar orden'}</Button>}</> : <>
       {activity.type === 'FAVORITE_MOMENT' && <div className="activity-instruction"><Heart size={36} /><h2>¿Qué escena les gustó más y por qué?</h2></div>}
       {activity.type === 'FAVORITE_MOMENT' && <img className="activity-hero" src={story.scenes[0].image} alt={story.title}/>}
       <section className="card conversation-card">{activity.type === 'FAVORITE_MOMENT' ? <><h2>¡Conversemos!</h2><p>Primero cuéntalo tú, luego escucha el momento favorito de tu familia.</p><p>¿Qué pasó en esa escena? ¿Por qué fue especial para ustedes?</p></> : <><h2>¡A jugar a los personajes!</h2><ol><li>El niño elige un personaje del cuento.</li><li>Lo representa sin decir su nombre.</li><li>La persona adulta intenta adivinarlo.</li><li>¡Intercambien turnos!</li></ol></>}</section><p className="muted activity-note">No olvides informarnos cuando terminen</p><Button disabled={busy} onClick={() => void complete()}><Check />{busy ? 'Guardando…' : 'Ya terminamos la actividad'}</Button>

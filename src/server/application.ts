@@ -273,10 +273,10 @@ export async function executeCommand(raw: unknown, hash: string | undefined, cli
       const expected = JSON.parse(session.attempt.activity.sceneIds) as string[];
       const correct = session.attempt.activity.type !== 'SEQUENCE' || isCorrectSequence(command.order ?? [], expected);
       await tx.activityAttempt.update({ where: { id: session.attempt.id }, data: {
-        tries: { increment: 1 }, lastOrder: command.order ? JSON.stringify(command.order) : null,
-        ...(correct ? { status: 'Completed', completedAt: now } : {})
+        tries: { increment: correct && session.attempt.lastOrder === JSON.stringify(command.order) && !command.validateOnly ? 0 : 1 }, lastOrder: command.order ? JSON.stringify(command.order) : null,
+        ...(correct && !command.validateOnly ? { status: 'Completed', completedAt: now } : {})
       } });
-      if (correct) await tx.reminder.deleteMany({ where: { sessionId: session.id, type: 'PendingActivity' } });
+      if (correct && !command.validateOnly) await tx.reminder.deleteMany({ where: { sessionId: session.id, type: 'PendingActivity' } });
       result = { correct }; return;
     }
   }, { timeout: 15000 });

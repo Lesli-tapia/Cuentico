@@ -31,7 +31,7 @@ export const commandSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('saveReading'), sessionId: identifier, sceneIndex: z.number().int().min(0).max(999), activeDurationSeconds: duration, pause: z.boolean().optional() }).strict(),
   z.object({ type: z.literal('finishReading'), sessionId: identifier, activeDurationSeconds: duration }).strict(),
   z.object({ type: z.literal('deferActivity'), sessionId: identifier }).strict(),
-  z.object({ type: z.literal('completeActivity'), sessionId: identifier, order: z.array(identifier).max(10).optional() }).strict(),
+  z.object({ type: z.literal('completeActivity'), sessionId: identifier, order: z.array(identifier).max(10).optional(), validateOnly: z.boolean().optional() }).strict(),
   z.object({ type: z.literal('toggleFavorite'), storyId: identifier }).strict(),
   z.object({ type: z.literal('selectAvatar'), characterId: identifier }).strict(),
   z.object({ type: z.literal('rateStory'), storyId: identifier, rating: z.enum(['LOVE', 'LIKE', 'NOT_FAVORITE']) }).strict(),
