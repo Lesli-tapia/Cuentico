@@ -1,4 +1,9 @@
 import type { SceneEvent } from '@/modules/content/types';
+let sharedContext: AudioContext | null = null;
+export async function unlockReaderAudio() {
+  if (typeof window === 'undefined' || !window.AudioContext) return null;
+  try { if (!sharedContext || sharedContext.state === 'closed') sharedContext = new AudioContext(); await sharedContext.resume(); return sharedContext; } catch { return null; }
+}
 /** One audio source, bounded timers, and user-gesture permission for declarative scene events. */
 export class SceneEventPlayer {
   private context: AudioContext | null = null;
@@ -6,12 +11,11 @@ export class SceneEventPlayer {
   private timers: ReturnType<typeof setTimeout>[] = [];
   private request: AbortController | null = null;
   private allowed = false;
-  constructor(private muted = true) {}
+  constructor(private muted = true) { this.context = sharedContext; this.allowed = sharedContext?.state === 'running'; }
   async unlock() {
-    if (typeof window === 'undefined' || !window.AudioContext) return;
-    try { this.context ??= new AudioContext(); await this.context.resume(); this.allowed = true; } catch { this.allowed = false; }
+    this.context = await unlockReaderAudio(); this.allowed = this.context?.state === 'running';
   }
-  setMuted(muted: boolean) { this.muted = muted; if (muted) this.stopAudio(); }
+  setMuted(muted: boolean) { this.muted = muted; if (muted) this.clear(); }
   private stopAudio() { this.request?.abort(); this.request = null; try { this.source?.stop(); } catch {} this.source = null; }
   private async play(event: SceneEvent) {
     if (!event.asset || this.muted || !this.allowed || !this.context) return;
@@ -35,5 +39,5 @@ export class SceneEventPlayer {
     }
   }
   clear() { this.timers.forEach(clearTimeout); this.timers = []; this.stopAudio(); }
-  dispose() { this.clear(); void this.context?.close(); this.context = null; }
+  dispose() { this.clear(); this.context = null; }
 }

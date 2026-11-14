@@ -18,6 +18,10 @@ export async function seedContent(client: PrismaClient): Promise<void> {
         await tx.storyScene.upsert({ where: { id: scene.id }, create: data, update: data });
         const media = { id: `${scene.id}-illustration`, storyId: story.id, sceneId: scene.id, kind: 'IMAGE', asset: scene.image };
         await tx.storyMedia.upsert({ where: { id: media.id }, create: media, update: media });
+        if (scene.video) {
+          const video = {id: scene.id+'-video',storyId:story.id,sceneId:scene.id,kind:'VIDEO',asset:scene.video};
+          await tx.storyMedia.upsert({where:{id:video.id},create:video,update:video});
+        }
       }
       if (character) {
         const data = { ...character, storyId: story.id };

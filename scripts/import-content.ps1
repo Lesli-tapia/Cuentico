@@ -23,16 +23,17 @@ function Read-DocxParagraphs([string]$Path) {
 }
 
 $taskDefinitions = @(
-    @{ id='alas'; folder='1 Las alas que brillaban con el sol'; doc='CUENTO 1.docx'; ends=@(2,3,5,7,8,10); theme='Fantasía y autoestima'; character='Elian'; portrait=5; duration=8; activity='FAVORITE_MOMENT'; activityTitle='Nuestro momento favorito'; activityScenes=@(1,3,5,6) },
+    @{ id='alas'; folder='1 Las alas que brillaban con el sol'; doc='CUENTO 1.docx'; ends=@(1,2,3,7,8,10); theme='Fantasía y autoestima'; character='Elian'; portrait=5; duration=8; activity='FAVORITE_MOMENT'; activityTitle='Nuestro momento favorito'; activityScenes=@(1,3,5,6) },
     @{ id='nilo'; folder='2 Milo el gato explorador'; doc='CUENTO 2.docx'; ends=@(1,2,3,4,5,7); theme='Animales y amistad'; character='Nilo'; portrait=1; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) },
     @{ id='kiro'; folder='3 Kiro y el corazón de la sabana'; doc='CUENTO 3.docx'; ends=@(1,4,6,8,10,14); theme='Naturaleza y trabajo en equipo'; character='Kiro'; portrait=1; duration=8; activity='GUESS_CHARACTER'; activityTitle='Adivina el personaje'; activityScenes=@(1,2,5,6) },
-    @{ id='tortas'; folder='4 El misterio de las tortas desaparecidas'; doc='CUENTO 4.docx'; ends=@(2,4,6,7,9,10); theme='Aventuras y generosidad'; character='Martina'; portrait=2; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) }
+    @{ id='tortas'; folder='4 El misterio de las tortas desaparecidas'; doc='CUENTO 4.docx'; ends=@(1,2,4,6,8,10); theme='Aventuras y generosidad'; character='Martina'; portrait=2; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) }
 )
 
+$taskMediaConfig = Get-Content -LiteralPath (Join-Path $taskRoot 'content\scene-media.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $taskStories = @()
 for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
     $taskDefinition = $taskDefinitions[$taskOrder]
-    $taskFolder = Join-Path $taskRoot ('Cuentos\' + $taskDefinition.folder)
+    $taskFolder = Join-Path $taskRoot ('Cambios\Cuentos\' + $taskDefinition.folder)
     $taskParagraphs = @(Read-DocxParagraphs (Join-Path $taskFolder $taskDefinition.doc))
     $taskScenes = @()
     $taskStart = 1
@@ -41,7 +42,6 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
         $taskSceneId = $taskDefinition.id + '-' + $taskSceneNumber
         $taskImagePath = '/assets/stories/' + $taskDefinition.id + '/' + $taskSceneNumber + '.png'
         $taskOriginalImage = Join-Path $taskFolder ($taskSceneNumber.ToString() + '.png')
-        if ($taskDefinition.id -eq 'alas' -and $taskSceneNumber -eq 5) { $taskOriginalImage = Join-Path $taskRoot 'Cambios\05_Las alas que brillaban con el sol.png' }
         if ($taskDefinition.id -eq 'nilo' -and $taskSceneNumber -ge 5) {
             $taskCandidates = @(Get-ChildItem -LiteralPath $taskFolder -Filter ('*-' + $taskSceneNumber + '.png'))
             if ($taskCandidates.Count -ne 1) { throw "Expected exactly one Nilo image $taskSceneNumber" }
@@ -58,6 +58,11 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
             id=$taskSceneId; index=($taskSceneNumber-1); image=$taskImagePath
             paragraphs=@($taskParagraphs[$taskStart..$taskEnd])
             events=@([ordered]@{sceneId=$taskSceneId; eventType='IMAGE_ANIMATION'; trigger='ON_SCENE_ENTER'; delayMs=0; asset=$null; durationMs=700; enabled=$true})
+        }
+        $taskMedia = $taskMediaConfig.$taskSceneId
+        if ($taskMedia.video) { $taskScenes[-1]['video'] = $taskMedia.video }
+        foreach ($taskSound in $taskMedia.sounds) {
+            $taskScenes[-1].events += [ordered]@{sceneId=$taskSceneId;eventType='SOUND_EFFECT';trigger='AFTER_DELAY';delayMs=$taskSound.delayMs;asset=$taskSound.asset;durationMs=$taskSound.durationMs;enabled=$true}
         }
         $taskStart = $taskEnd+1
     }
@@ -95,7 +100,7 @@ if (-not $Verify) {
     [IO.File]::WriteAllText((Join-Path $taskRoot 'content\tips.json'), ($taskTips | ConvertTo-Json -Depth 5), $taskUtf8)
     $taskAssets = Join-Path $taskRoot 'public\assets'
     New-Item -ItemType Directory -Path (Join-Path $taskAssets 'fonts') -Force | Out-Null
-    Copy-Item -LiteralPath (Join-Path $taskRoot 'Branding\Logo Cuentico\Logo cuentico-03.png') -Destination (Join-Path $taskAssets 'logo-horizontal.png') -Force
+    # Logos are prepared separately; do not overwrite trimmed application copies.
     foreach ($taskFont in @('Poppins-Regular.ttf','Poppins-Medium.ttf','Poppins-SemiBold.ttf','Poppins-Bold.ttf','OFL.txt')) {
         Copy-Item -LiteralPath (Join-Path $taskRoot ('Branding\poppins\' + $taskFont)) -Destination (Join-Path $taskAssets ('fonts\' + $taskFont)) -Force
     }

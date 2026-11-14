@@ -20,6 +20,7 @@ export interface StoryScene {
   id: string;
   index: number;
   image: string;
+  video?: string;
   paragraphs: string[];
   events: SceneEvent[];
 }

@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode, type ButtonHTMLAttributes } from 'react';
 import { ArrowLeft, ArrowRight, BookOpen, Home, Heart, Compass, Star, UserRound, Lightbulb, X } from 'lucide-react';
 import { useApp } from './app-provider';
+import { unlockReaderAudio } from '@/modules/reader/scene-events';
 import catalog from '../../content/catalog.json';
 export function Logo({ white = false }: { white?: boolean }) { return <Link href="/" aria-label="Cuentico, inicio" className="logo"><img src={white ? "/assets/logo-white.png" : "/assets/logo-horizontal.png"} alt="Cuentico" width="210" height="52" /></Link>; }
 export function Avatar() {
@@ -29,7 +30,7 @@ export function RequireProfile({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 export function Button({ children, className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement>) { return <button className={`button ${className}`} {...props}>{children}</button>; }
-export function ActionLink({ href, children, secondary = false }: { href: string; children: ReactNode; secondary?: boolean }) { return <Link className={`button ${secondary ? 'secondary' : ''}`} href={href}>{children}</Link>; }
+export function ActionLink({ href, children, secondary = false }: { href: string; children: ReactNode; secondary?: boolean }) { return <Link onClick={()=>{if(href.includes("/preparacion"))void unlockReaderAudio();}} className={`button ${secondary ? 'secondary' : ''}`} href={href}>{children}</Link>; }
 export function PageTitle({ title, subtitle }: { title: string; subtitle?: string }) { return <div className="page-title"><h1>{title}</h1>{subtitle && <p>{subtitle}</p>}</div>; }
 export function ProgressBar({ value, label }: { value: number; label: string }) { return <div className="progress" role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(value)}><span style={{ width: `${Math.max(0, Math.min(100, value))}%` }} /></div>; }
 export function TipCard({ text, during = false }: { text: string; during?: boolean }) { return <aside className="tip-card"><span className="eyebrow"><Lightbulb size={22} aria-hidden="true" /> Consejo para familias</span><h2>{during ? 'Leamos juntos' : 'Antes de la aventura'}</h2><p>{text}</p></aside>; }
