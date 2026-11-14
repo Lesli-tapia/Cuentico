@@ -5,7 +5,7 @@
 @font-face { font-family: Poppins; src: url('/assets/fonts/Poppins-SemiBold.ttf') format('truetype'); font-weight: 600; font-display: swap; }
 @font-face { font-family: Poppins; src: url('/assets/fonts/Poppins-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 :root {
-  --cream: #FBEFE3; --turquoise: #51BAB3; --coral: #E36849; --yellow: #FFBE30; --pastel-blue: #BBD8DE;
+  --cream: #FBF1E5; --turquoise: #4CBCB4; --coral: #F36D43; --yellow: #FEBD2D; --pastel-blue: #81BCD1;
   --ink: #243B5C; --muted: #526780; --white: #fff; --mint: #e0f2ef; --line: #dbe2e7;
   --radius: 26px; --radius-sm: 16px; --shadow: 0 8px 30px #243b5c08;
   --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 32px;
@@ -291,3 +291,40 @@ input[type='checkbox'] { width: 20px; height: 20px; accent-color: #29877f; flex-
   .error-banner span { flex-basis: 100%; }
 }
 @media (max-width: 360px) { .app-shell, .reader-shell { padding-left: 16px; padding-right: 16px; } .recommended img { height: 240px; } .recommended h2 { font-size: 1.2rem; } .recommended .badge { font-size: .58rem; } .bottom-nav a { font-size: .7rem; } .story-image-link { width: 90px; } .character-image { width: 100px; height: 100px; } }
+
+/* Identidad oficial, muestreada de Branding/Paleta cromática.png. */
+.button { background: var(--yellow); font-weight: 500; }
+.button.secondary { background: var(--pastel-blue); border-color: transparent; }
+.button:active:not(:disabled) { transform: scale(.98); }
+.logo img { width: 190px; height: 52px; object-fit: contain; }
+.app-header:has(img[src='/assets/logo-white.png']) { background: var(--turquoise); padding: 16px; border-radius: 20px; }
+.app-header:has(img[src='/assets/logo-white.png']) > a:last-child { color: white; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+.story-card { flex-direction: column; padding: 16px; gap: 16px; }
+.story-image-link { width: 100%; }
+.story-image-link img { width: 100%; height: 280px; object-fit: contain; background: var(--cream); }
+.story-card-copy { width: 100%; }
+.story-title h2 { font-size: 1.25rem; }
+.story-card .button { width: 100%; margin-top: 12px; }
+.search-box { padding: 5px 16px; }
+.routine-note { display: flex; gap: 12px; margin: 0 0 22px; padding: 16px; }
+.routine-note p { margin: 0; }
+.recommended img { object-fit: contain; }
+.favorites-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.favorite-tile { background: white; padding: 12px; border-radius: 22px; }
+.favorite-tile img { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 16px; }
+.favorite-tile h2 { font-size: 1rem; margin-top: 12px; }
+@media(max-width:600px) { .story-list { grid-template-columns: 1fr; } .story-image-link img { height: auto; max-height: 360px; } }
+
+.metric-card {border:0;color:var(--ink);text-align:left;display:flex;flex-direction:column}.metric-card[aria-pressed=true]{outline:3px solid var(--turquoise)}.metric-card strong{font-size:1.8rem}.week-controls{display:flex;align-items:center;justify-content:space-between;gap:8px}.weekly-bars{height:210px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-items:end;gap:8px}.weekly-bars>div{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:.8rem}.weekly-bars>div>div{width:80%;background:var(--turquoise);border-radius:6px 6px 0 0}.character-card{padding:16px}.character-image{max-height:220px}
+
+.reader-header{background:var(--turquoise);border-radius:16px;padding:10px;flex-wrap:wrap}.reader-header h1{flex:1;min-width:100px}.page-dots{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:20px}.page-dots span{width:10px;height:10px;background:var(--pastel-blue);border-radius:50%}.page-dots .current{background:var(--ink);outline:3px solid var(--yellow)}.transition-tip{min-height:100dvh;max-width:700px;margin:auto;padding:32px;display:flex;flex-direction:column;justify-content:center;gap:40px}.transition-tip .tip-card{font-size:1.25rem}.transition-tip .progress{margin-top:auto}.scene-text{overflow:visible}
+
+.app-shell:has(.activity-view){background:color-mix(in srgb,var(--pastel-blue) 22%,white)}.time-card{background:var(--coral)}.time-card strong{font-size:2rem}.activity-note{padding:16px;background:var(--pastel-blue);border-radius:16px}.character-reward~.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}@media(max-width:360px){.character-reward~.stack{grid-template-columns:1fr}}
+
+.activity-steps{display:grid;gap:12px;padding-left:28px}.activity-steps li::marker{font-weight:700;color:var(--ink)}.activity-steps h2{font-size:1.1rem}.activity-steps p{margin-top:6px}
+
+@media(max-width:600px){.recommended{display:flex;flex-direction:column-reverse;align-items:stretch}.recommended img{height:auto;max-height:300px;width:100%;object-fit:contain}.recommended-copy{align-items:stretch}.recommended-copy .badge{align-self:flex-start}.recommended h1{font-size:1.8rem}.app-header .logo img{width:180px;height:52px}}
+
+@media(max-width:600px){.recommended img{max-height:200px}}

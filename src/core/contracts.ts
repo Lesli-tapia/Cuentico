@@ -17,9 +17,10 @@ export interface Progress {
   rating: 'LOVE' | 'LIKE' | 'NOT_FAVORITE' | null;
 }
 export interface Attempt {
-  id: string; sessionId: string; activityId: string; status: 'Pending' | 'Completed'; tries: number;
+  id: string; sessionId: string; activityId: string; status: 'Pending' | 'Completed'; tries: number; completedAt?: string | null;
 }
 export interface AppState {
+  metrics?: { id: string; sessionId: string; kind: string; value: number; recordedAt: string }[];
   family: { id: string; activeChildId: string | null } | null;
   profiles: ChildProfile[]; child: ChildProfile | null; plan: ReadingPlan; preferences: Preferences;
   progress: Progress[]; sessions: Session[]; attempts: Attempt[];
@@ -29,6 +30,7 @@ export interface AppState {
 }
 export type ProfileInput = { name: string; age: number; interests: string[]; plan: ReadingPlan; preferences: Preferences };
 export type Command =
+  | { type: 'recordMetric'; sessionId: string; eventId: string; kind: 'InitialTip' | 'VoluntaryTip' | 'ActivityStarted' | 'ActivityTime'; value?: number }
   | { type: 'createProfile'; input: ProfileInput }
   | { type: 'updateProfile'; input: ProfileInput }
   | { type: 'switchProfile'; childId: string }
@@ -36,7 +38,7 @@ export type Command =
   | { type: 'saveReading'; sessionId: string; sceneIndex: number; activeDurationSeconds: number; pause?: boolean }
   | { type: 'finishReading'; sessionId: string; activeDurationSeconds: number }
   | { type: 'deferActivity'; sessionId: string }
-  | { type: 'completeActivity'; sessionId: string; order?: string[] }
+  | { type: 'completeActivity'; sessionId: string; order?: string[]; validateOnly?: boolean }
   | { type: 'toggleFavorite'; storyId: string }
   | { type: 'selectAvatar'; characterId: string }
   | { type: 'rateStory'; storyId: string; rating: 'LOVE' | 'LIKE' | 'NOT_FAVORITE' }

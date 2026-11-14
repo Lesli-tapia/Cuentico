@@ -1,0 +1,1 @@
+import {RequireProfile,Shell} from '@/components/ui';import SettingsView from '@/modules/profiles/settings-view';export default function Page(){return <RequireProfile><Shell back="/perfil"><SettingsView/></Shell></RequireProfile>;}

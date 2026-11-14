@@ -23,16 +23,16 @@ function Read-DocxParagraphs([string]$Path) {
 }
 
 $taskDefinitions = @(
-    @{ id='alas'; folder='1 Las alas que brillaban con el sol'; doc='CUENTO 1.docx'; ends=@(2,5,6,12,14,19); theme='Fantasía y autoestima'; character='Elian'; portrait=5; duration=8; activity='FAVORITE_MOMENT'; activityTitle='Nuestro momento favorito'; activityScenes=@(1,3,5,6) },
-    @{ id='nilo'; folder='2 Milo el gato explorador'; doc='CUENTO 2.docx'; ends=@(2,5,9,14,17,22); theme='Animales y amistad'; character='Nilo'; portrait=1; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) },
-    @{ id='kiro'; folder='3 Kiro y el corazón de la sabana'; doc='CUENTO 3.docx'; ends=@(3,8,13,16,19,24); theme='Naturaleza y trabajo en equipo'; character='Kiro'; portrait=1; duration=8; activity='GUESS_CHARACTER'; activityTitle='Adivina el personaje'; activityScenes=@(1,2,5,6) },
-    @{ id='tortas'; folder='4 El misterio de las tortas desaparecidas'; doc='CUENTO 4.docx'; ends=@(2,4,8,13,23,27); theme='Aventuras y generosidad'; character='Martina'; portrait=2; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) }
+    @{ id='alas'; folder='1 Las alas que brillaban con el sol'; doc='CUENTO 1.docx'; ends=@(2,3,5,7,8,10); theme='Fantasía y autoestima'; character='Elian'; portrait=5; duration=8; activity='FAVORITE_MOMENT'; activityTitle='Nuestro momento favorito'; activityScenes=@(1,3,5,6) },
+    @{ id='nilo'; folder='2 Milo el gato explorador'; doc='CUENTO 2.docx'; ends=@(1,2,3,4,5,7); theme='Animales y amistad'; character='Nilo'; portrait=1; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) },
+    @{ id='kiro'; folder='3 Kiro y el corazón de la sabana'; doc='CUENTO 3.docx'; ends=@(1,4,6,8,10,14); theme='Naturaleza y trabajo en equipo'; character='Kiro'; portrait=1; duration=8; activity='GUESS_CHARACTER'; activityTitle='Adivina el personaje'; activityScenes=@(1,2,5,6) },
+    @{ id='tortas'; folder='4 El misterio de las tortas desaparecidas'; doc='CUENTO 4.docx'; ends=@(2,4,6,7,9,10); theme='Aventuras y generosidad'; character='Martina'; portrait=2; duration=8; activity='SEQUENCE'; activityTitle='Ordena la aventura'; activityScenes=@(1,3,5,6) }
 )
 
 $taskStories = @()
 for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
     $taskDefinition = $taskDefinitions[$taskOrder]
-    $taskFolder = Join-Path $taskRoot ('Referencias\Cuentos\' + $taskDefinition.folder)
+    $taskFolder = Join-Path $taskRoot ('Cuentos\' + $taskDefinition.folder)
     $taskParagraphs = @(Read-DocxParagraphs (Join-Path $taskFolder $taskDefinition.doc))
     $taskScenes = @()
     $taskStart = 1
@@ -41,6 +41,7 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
         $taskSceneId = $taskDefinition.id + '-' + $taskSceneNumber
         $taskImagePath = '/assets/stories/' + $taskDefinition.id + '/' + $taskSceneNumber + '.png'
         $taskOriginalImage = Join-Path $taskFolder ($taskSceneNumber.ToString() + '.png')
+        if ($taskDefinition.id -eq 'alas' -and $taskSceneNumber -eq 5) { $taskOriginalImage = Join-Path $taskRoot 'Cambios\05_Las alas que brillaban con el sol.png' }
         if ($taskDefinition.id -eq 'nilo' -and $taskSceneNumber -ge 5) {
             $taskCandidates = @(Get-ChildItem -LiteralPath $taskFolder -Filter ('*-' + $taskSceneNumber + '.png'))
             if ($taskCandidates.Count -ne 1) { throw "Expected exactly one Nilo image $taskSceneNumber" }
@@ -68,7 +69,7 @@ for ($taskOrder = 0; $taskOrder -lt $taskDefinitions.Count; $taskOrder++) {
     }
     $taskStories += [ordered]@{
         id=$taskDefinition.id; title=$taskParagraphs[0]; description=$taskParagraphs[1]; order=($taskOrder+1)
-        ageMin=6; ageMax=7; durationMinutes=$taskDefinition.duration; theme=$taskDefinition.theme
+        ageMin=6; ageMax=9; durationMinutes=$taskDefinition.duration; theme=$taskDefinition.theme
         cover=('/assets/stories/' + $taskDefinition.id + '/1.png'); available=$true; scenes=$taskScenes
         character=[ordered]@{id=($taskDefinition.id + '-character'); name=$taskDefinition.character; image=('/assets/stories/' + $taskDefinition.id + '/' + $taskDefinition.portrait + '.png')}
         activity=[ordered]@{id=($taskDefinition.id + '-activity'); type=$taskDefinition.activity; title=$taskDefinition.activityTitle; sceneIds=@($taskDefinition.activityScenes | ForEach-Object {$taskDefinition.id + '-' + $_})}
@@ -94,7 +95,7 @@ if (-not $Verify) {
     [IO.File]::WriteAllText((Join-Path $taskRoot 'content\tips.json'), ($taskTips | ConvertTo-Json -Depth 5), $taskUtf8)
     $taskAssets = Join-Path $taskRoot 'public\assets'
     New-Item -ItemType Directory -Path (Join-Path $taskAssets 'fonts') -Force | Out-Null
-    Copy-Item -LiteralPath (Join-Path $taskRoot 'Branding\logo.svg') -Destination (Join-Path $taskAssets 'logo.svg') -Force
+    Copy-Item -LiteralPath (Join-Path $taskRoot 'Branding\Logo Cuentico\Logo cuentico-03.png') -Destination (Join-Path $taskAssets 'logo-horizontal.png') -Force
     foreach ($taskFont in @('Poppins-Regular.ttf','Poppins-Medium.ttf','Poppins-SemiBold.ttf','Poppins-Bold.ttf','OFL.txt')) {
         Copy-Item -LiteralPath (Join-Path $taskRoot ('Branding\poppins\' + $taskFont)) -Destination (Join-Path $taskAssets ('fonts\' + $taskFont)) -Force
     }
@@ -118,4 +119,4 @@ if (-not $Verify) {
         }
     }
 }
-Write-Output 'Content verified: 92 original story paragraphs, 31 parent tips, 24 original images. Fifth slot unavailable.'
+Write-Output 'Content verified: 41 updated story paragraphs, 31 parent tips, 24 original images. Fifth slot unavailable.'
